@@ -2,6 +2,8 @@ const path = require('path');
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //extrae css
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin"); //minify css
+const TerserPlugin = require("terser-webpack-plugin");
 /*
 const webpack = require('webpack')
 const dotenv = require('dotenv')
@@ -10,8 +12,8 @@ const env = dotenv.config().parsed
 const envKeys = Object.keys(env).reduce((prev, next) => {
   prev[`process.env.${next}`] = JSON.stringify(env[next])
   return prev
-}, {})*/
-
+}, {})
+*/
 module.exports = {
   mode: "production",
   entry: {
@@ -78,7 +80,8 @@ module.exports = {
         hash: true,
       filename: '../index.html',
      template: 'src/index.html',
-     chunks: ['app','service-worker']
+     chunks: ['app','service-worker'],
+     favicon: "./src/favicon.ico"
     }),
     ,
     new HtmlWebpackPlugin({
@@ -104,6 +107,12 @@ module.exports = {
   },
   optimization: {
     minimize: true,
+    minimizer: [
+     new CssMinimizerPlugin(),
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
+      }),
+    ],
 
   },
 
