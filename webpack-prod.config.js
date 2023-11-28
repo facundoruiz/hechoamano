@@ -17,6 +17,7 @@ module.exports = {
   entry: {
     app: './src/index.js',
     '../../serverwork': './src/vendor/sw2.js',
+    dashboard: './src/dashboard.js',
   },
   output: {
     path: path.resolve(__dirname, 'docs/assets'),
@@ -73,23 +74,30 @@ module.exports = {
       filename: 'css/[name].min.css'
     }),
     new HtmlWebpackPlugin({
-      title: 'PRUEBA',
-      hash: true,
+      title: 'Hecho a Mano',
+        hash: true,
       filename: '../index.html',
-      template: 'src/index.html'
-      //  	template: 'src/template.html'
+     template: 'src/index.html',
+     chunks: ['app','service-worker']
     }),
-
+    ,
     new HtmlWebpackPlugin({
-      title: 'Registrar',
-      filename: '../registrar.html',
-      template: 'src/registro.html'
+      title: 'Dashboard',
+        hash: true,
+      filename: '../crud.html',
+     template: 'src/crud.html',
+     chunks: ['dashboard']
     }),
+   new HtmlWebpackPlugin({
+       title: 'Registrar',
+       filename: '../registrar.html',
+       template: 'src/registro.html'
+   }),
     new HtmlWebpackPlugin({
-      title: 'Fuera de Servicio',
-      filename: '../offline.html',
-      template: 'src/offline.html'
-    }),
+       title: 'Fuera de Servicio',
+       filename: '../offline.html',
+       template: 'src/offline.html'
+   }),
   ],
   resolve: {
     extensions: ['.js']
