@@ -1,0 +1,35 @@
+name: Build and GH-Page Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
+      - name: Install
+        run: yarn install
+
+      - name: Build
+        run: |
+          yarn autoclean
+          FIRESTONE_CONFIG=$FIRESTONE_CONFIG
+          yarn build
+        env:
+          FIRESTONE_CONFIG: ${{ secrets.FIRESTONE_CONFIG }}
+        
+      - name: Deploy to GH Page
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: src
+        env:
+            FIRESTONE_CONFIG: ${{ secrets.FIRESTONE_CONFIG }}  
