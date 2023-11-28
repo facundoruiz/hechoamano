@@ -1,6 +1,5 @@
 import {
-  onGetTasks,
-  saveTask
+  onGetTasks
 } from "./productos_crud.js"
 import {
   showMessage
@@ -29,7 +28,7 @@ export const showTareas = () => {
               <h6 class="descrip">${taks.descripcion}</h6>
               <div class="post-meta-single mt-3">
                   <ul>
-                      <li><i class="fa fa-clock-o"></i>${createdAt}</li>
+                      <li><i class="fa fa-mone"></i>${taks.precio}</li>
                   </ul>
               </div>
           </div>
@@ -46,67 +45,3 @@ export const showTareas = () => {
 }
 
 
-
-
-const taskForm = document.getElementById("taks-form");
-if(taskForm){
-
-  const btnAddTak = document.querySelector("#save-tak");
-  
-// Función para cuando hagan click en boton y  autenticar con Google y guardar el usuario en Firestore
-//btnAddTak.addEventListener("click", async (e) => {
-  taskForm.addEventListener("submit", async (e) => {
-
-    
-    e.preventDefault();
-    
-    console.log(taskForm["formFile"].files[0]);
-
-  if (saveTask( taskForm,file)) {
-    // show  message
-    taskForm.reset();
-    taskForm['nombre'].focus();
-    showMessage("pieza Guardada!");
-    //window.location.href = "./";
-  } else {
-    showMessage(" Errror", error);
-  }
-  
-  
-})
-
-}
-
-const DATE_UNITS = {
-  day: 86400,
-  hour: 3600,
-  minute: 60,
-  second: 1
-};
-
-const getSecondsDiff = timestamp => {
-  const now = new Date();
-  const timestampDate = timestamp instanceof Date ? timestamp : timestamp.toDate();
-  return (now.getTime() - timestampDate.getTime()) / 1000;
-};
-
-
-const getUnitAndValueDate = secondsElapsed => {
-  for (const [unit, secondsInUnit] of Object.entries(DATE_UNITS)) {
-    if (secondsElapsed >= secondsInUnit || unit === "second") {
-      const value = Math.floor(secondsElapsed / secondsInUnit) * -1;
-      return { value, unit };
-    }
-  }
-};
-
-const getTimeAgo = timestamp => {
-  if (!timestamp) {
-    return 'recien';
-  }
-  const rtf = new Intl.RelativeTimeFormat();
-
-  const secondsElapsed = getSecondsDiff(timestamp);
-  const { value, unit } = getUnitAndValueDate(secondsElapsed);
-  return rtf.format(value, unit);
-};
