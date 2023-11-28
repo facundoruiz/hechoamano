@@ -40,7 +40,12 @@
 
 
 ## Visto en 
+https://www.paigeniedringhaus.com/blog/use-secret-environment-variables-in-git-hub-actions
+
 https://github.com/fazt/firebase-auth-example/blob/master/src/main.js
+
 https://platzi.com/tutoriales/2118-react-hooks/8661-como-usar-variables-de-entorno-en-el-proyecto-platzi-conf-merch-localmente-y-en-produccion/
+
 https://developer.chrome.com/docs/workbox/troubleshooting-and-logging/#debugging_workbox
+
 https://www.youtube.com/playlist?list=PLrAw40DbN0l0p5K-fp4hDVCjZgZIQnSSE
