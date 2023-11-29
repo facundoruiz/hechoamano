@@ -22,8 +22,8 @@ module.exports = {
     dashboard: './src/dashboard.js',
   },
   output: {
-    path: path.resolve(__dirname, 'docs/assets'),
-    filename: 'js/[name].js',
+    path: path.resolve(__dirname, 'docs'),
+    filename: 'assets/js/[name].js',
   },
   module: {
     rules: [{
@@ -31,7 +31,7 @@ module.exports = {
         scheme: 'data',
         type: 'asset/resource',
         generator: {
-          filename: 'svg/[hash].svg'
+          filename: 'assets/svg/[hash].svg'
 
         }
       },
@@ -40,7 +40,7 @@ module.exports = {
         type: 'asset/resource',
 
         generator: {
-          filename: 'img/[hash][ext]'
+          filename: 'assets/img/[hash][ext]'
 
         }
       },
@@ -48,7 +48,7 @@ module.exports = {
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         type: 'asset/resource',
         generator: {
-          filename: 'fonts/[hash][ext]'
+          filename: 'assets/fonts/[hash][ext]'
 
         }
       },
@@ -91,32 +91,33 @@ module.exports = {
    // new webpack.DefinePlugin(envKeys),
 
     new MiniCssExtractPlugin({
-      filename: 'css/[name].min.css'
+      filename: 'assets/css/[name].min.css'
     }),
     new HtmlWebpackPlugin({
       title: 'Hecho a Mano',
         hash: true,
-      filename: '../index.html',
-     template: 'src/index.html',
+      filename: 'index.html',
+     template: './src/index.html',
      chunks: ['app','service-worker'],
-     favicon: "./src/favicon.ico"
+     favicon: "./src/favicon.ico",
+     manifest: "./src/manifest.json"
     }),
     new HtmlWebpackPlugin({
       title: 'Dashboard',
         hash: true,
-      filename: '../crud.html',
-     template: 'src/crud.html',
+      filename: 'crud.html',
+     template: './src/crud.html',
      chunks: ['dashboard']
     }),
    new HtmlWebpackPlugin({
        title: 'Registrar',
-       filename: '../registrar.html',
-       template: 'src/registro.html'
+       filename: 'registrar.html',
+       template: './src/registro.html'
    }),
     new HtmlWebpackPlugin({
        title: 'Fuera de Servicio',
-       filename: '../offline.html',
-       template: 'src/offline.html'
+       filename: 'offline.html',
+       template: './src/offline.html'
    }),
   ],
   resolve: {

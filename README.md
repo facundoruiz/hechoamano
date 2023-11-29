@@ -53,3 +53,8 @@ https://www.youtube.com/playlist?list=PLrAw40DbN0l0p5K-fp4hDVCjZgZIQnSSE
 https://javascript.plainenglish.io/how-to-use-environment-variables-in-github-actions-workflows-598b583c1a92
 
 https://www.taniarascia.com/how-to-use-webpack/
+
+# Diseños
+http://preview.themeforest.net/item/new-launch-responsive-coming-soon-page-html/full_screen_preview/20410357?_ga=2.36836128.1491079857.1701284910-1803255386.1688556635
+
+https://htmlcssfreebies.com/demo/bs-components/masonry/masonry-1/index.html
