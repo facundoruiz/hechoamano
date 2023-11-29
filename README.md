@@ -49,3 +49,5 @@ https://platzi.com/tutoriales/2118-react-hooks/8661-como-usar-variables-de-entor
 https://developer.chrome.com/docs/workbox/troubleshooting-and-logging/#debugging_workbox
 
 https://www.youtube.com/playlist?list=PLrAw40DbN0l0p5K-fp4hDVCjZgZIQnSSE
+
+https://javascript.plainenglish.io/how-to-use-environment-variables-in-github-actions-workflows-598b583c1a92
