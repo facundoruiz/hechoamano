@@ -43,6 +43,9 @@ $prefix: "mo-";
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
 @import "toastify-js/src/toastify.css";
+
+@import 'animate.css';
+@import "bootstrap-icons/font/bootstrap-icons.css";
 // Option 2
 //
 // Place variable overrides first, then import just the styles you need. Note that some stylesheets are required no matter what.
@@ -193,4 +196,488 @@ body {
 
 .bg-purple {
   background-color: #6f42c1;
+}
+
+
+.section {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+@media (min-width: 768px) {
+  .section {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+.section.section-no-space {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.js-video-container {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+section .container-full,
+section .container-fluid,
+section .container {
+  position: relative;
+  z-index: 12;
+}
+.section-title {
+  font-weight: 100;
+}
+
+
+
+/*
+
+loder*/
+.loading {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 9999;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: block;
+}
+
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -40px;
+}
+.loader > img {
+  -webkit-animation-duration: 1.6s;
+  animation-duration: 1.6s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-transform-origin: top center;
+  transform-origin: top center;
+  -webkit-animation-name: rotate360;
+  animation-name: rotate360;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+
+@-webkit-keyframes rotate360 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate360 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+/**
+SOCIAL
+**/
+.social-nav {
+  display: inline-block;
+  display: block;
+  margin: 10px 0px;
+  text-align: right;
+}
+@media (min-width: 768px) {
+  .social-nav {
+    margin: 10px 0px;
+  }
+}
+.social-nav ul {
+  list-style: none;
+  margin: 0 -12px;
+  padding: 0;
+}
+.social-nav ul li {
+  display: inline-block;
+  margin: 0px 6px;
+}
+@media (min-width: 768px) {
+  .social-nav ul li {
+    margin: 0px 12px;
+  }
+}
+.social-nav ul li a {
+  color: #712cf9;
+  font-size: 18px;
+}
+@media (min-width: 768px) {
+  .social-nav ul li a {
+    font-size: 21px;
+  }
+}
+.social-nav ul li a:hover {
+  color: rgba(97, 97, 97, 0.7);
+}
+/*-----------------------------------*\
+  $DARK-MODE
+\*-----------------------------------*/
+
+.night-light-label #night-light-checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+
+.night-light-label {
+  display: block;
+  margin: 20px 0;
+  height: 31px;
+  width: 60px;
+  border: 2px solid #4672fe;
+  border-radius: 30px;
+  position: relative;
+  cursor: pointer;
+}
+
+.night-light-label .night-light-ball {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 1px;
+  left: 1px;
+  border-radius: 50%;
+  background: #4672fe;
+  z-index: 99;
+  transition: 300ms;
+}
+
+.night-light-label #night-light-checkbox:checked + .night-light-ball {
+  transform: translateX(28px);
+}
+
+.moon-svg,
+.sun-svg {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.moon-svg {
+  right: 5px;
+}
+
+.sun-svg {
+  left: 5px;
+}
+
+.dark #moon-svg,
+.dark #sun-svg {
+  fill: #e0e0e0 !important;
+}
+
+.dark {
+  background-color: #111;
+  color: #e0e0e0;
+}
+
+.dark .intro {
+  background: #111;
+}
+
+.dark .animation-list,
+.dark .sidebar {
+  background: #15151d;
+}
+
+.dark .button.button-animations,
+.dark .callout-hideList.button {
+  color: #e0e0e0;
+  border-color: rgba(255, 255, 255, 0.7);
+  outline: none;
+}
+
+.dark .copy-icon,
+.dark .copy-icon:hover {
+  background: #15151d;
+  border-color: #e0e0e0;
+}
+
+.dark .copy-icon::before,
+.dark .copy-icon:hover::before {
+  border-color: #e0e0e0;
+}
+
+.dark code {
+  color: #111;
+}
+
+.dark h2,
+.dark h3,
+.dark h4,
+.dark a[title='Documentation'],
+.dark pre * {
+  color: #e0e0e0;
+}
+
+.dark section {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark h1,
+.dark a {
+  color: #4672fe;
+}
+
+/*
+    Logo
+*/
+.logo {
+  font-size: 21px;
+  line-height: 51px;
+  vertical-align: middle;
+  display: inline-block;
+  float: left;
+  font-weight: 300;
+  margin: 0;
+  float: left;
+  -moz-transition: line-height 0.35s ease-in-out;
+  -o-transition: line-height 0.35s ease-in-out;
+  -webkit-transition: line-height 0.35s ease-in-out;
+  transition: line-height 0.35s ease-in-out;
+}
+.logo > img {
+  max-height: 56px;
+  width: auto;
+}
+@media (min-width: 992px) {
+  .logo {
+    font-size: 27px;
+    line-height: 59px;
+  }
+}
+.logo .small {
+  font-size: 70%;
+  vertical-align: bottom;
+  line-height: 52px;
+}
+.logo .circle-logo-wrapper {
+  display: inline-block;
+  position: relative;
+  margin: 0 5px 0 0;
+}
+.logo:hover .circle {
+  opacity: 1;
+  visibility: visible;
+  -moz-transform: scale(1) translate3d(0, 0, 0);
+  -ms-transform: scale(1) translate3d(0, 0, 0);
+  -webkit-transform: scale(1) translate3d(0, 0, 0);
+  transform: scale(1) translate3d(0, 0, 0);
+}
+.logo:hover .icon {
+  color: #9800de;
+  -moz-transform: scale(0.9) translate3d(0, 0, 0);
+  -ms-transform: scale(0.9) translate3d(0, 0, 0);
+  -webkit-transform: scale(0.9) translate3d(0, 0, 0);
+  transform: scale(0.9) translate3d(0, 0, 0);
+}
+.logo .circle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  margin: -15px;
+  border: 1px solid #ffffff;
+  border-radius: 25px;
+  visibility: hidden;
+  -moz-transition: -moz-transform 0.2s ease 0s, opacity 0.2s ease 0s;
+  -o-transition: -o-transform 0.2s ease 0s, opacity 0.2s ease 0s;
+  -webkit-transition: -webkit-transform 0.2s ease, opacity 0.2s ease;
+  -webkit-transition-delay: 0s, 0s;
+  transition: transform 0.2s ease 0s, opacity 0.2s ease 0s;
+  -moz-transform: scale(0.6) translate3d(0, 0, 0);
+  -ms-transform: scale(0.6) translate3d(0, 0, 0);
+  -webkit-transform: scale(0.6) translate3d(0, 0, 0);
+  transform: scale(0.6) translate3d(0, 0, 0);
+}
+@media (min-width: 992px) {
+  .logo .circle {
+    width: 40px;
+    height: 40px;
+    margin: -20px;
+  }
+}
+.logo .icon {
+  -moz-transition: all 0.2s ease 0s;
+  -o-transition: all 0.2s ease 0s;
+  -webkit-transition: all 0.2s ease;
+  -webkit-transition-delay: 0s;
+  transition: all 0.2s ease 0s;
+}
+
+
+
+/*
+    Page header
+*/
+.page-header {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  margin: 0px;
+  padding: 0px 0px;
+  -moz-transition: background-color 0.35s ease-in-out;
+  -o-transition: background-color 0.35s ease-in-out;
+  -webkit-transition: background-color 0.35s ease-in-out;
+  transition: background-color 0.35s ease-in-out;
+  border: 0px;
+  min-height: 60px;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+}
+@media (min-width: 992px) {
+  .page-header {
+    position: fixed;
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+  }
+}
+.page-header .social-nav {
+  margin: 10px 0;
+  float: right;
+}
+.page-header .navbar-header {
+  float: left;
+}
+
+/*
+    Navbar Ico
+*/
+.navbar-toggle {
+  border-color: #ccc;
+  padding: 7px 4px;
+}
+.navbar-toggle:hover, .navbar-toggle.active {
+  border-color: #999999;
+}
+.navbar-toggle:hover .icon-bar, .navbar-toggle.active .icon-bar {
+  background-color: #999999;
+}
+.navbar-toggle .icon-bar {
+  background-color: #ccc;
+  -moz-transition: -moz-transform 0.35s ease-in-out, opacity 0.25s ease-in-out;
+  -o-transition: -o-transform 0.35s ease-in-out, opacity 0.25s ease-in-out;
+  -webkit-transition: -webkit-transform 0.35s ease-in-out, opacity 0.25s ease-in-out;
+  transition: transform 0.35s ease-in-out, opacity 0.25s ease-in-out;
+}
+.navbar-toggle .top-bar {
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-transform-origin: 10% 10%;
+  -moz-transform-origin: 10% 10%;
+  -ms-transform-origin: 10% 10%;
+  -o-transform-origin: 10% 10%;
+  transform-origin: 10% 10%;
+}
+.navbar-toggle .middle-bar {
+  opacity: 0;
+}
+.navbar-toggle .bottom-bar {
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transform-origin: 10% 90%;
+  -moz-transform-origin: 10% 90%;
+  -ms-transform-origin: 10% 90%;
+  -o-transform-origin: 10% 90%;
+  transform-origin: 10% 90%;
+}
+.navbar-toggle.collapsed .top-bar {
+  -moz-transform: rotate(0);
+  -ms-transform: rotate(0);
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
+}
+.navbar-toggle.collapsed .middle-bar {
+  opacity: 1;
+}
+.navbar-toggle.collapsed .bottom-bar {
+  -moz-transform: rotate(0);
+  -ms-transform: rotate(0);
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
+}
+/*
+	Page footer
+*/
+.page-footer {
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  z-index: 999;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  margin: 5px 0px;
+  padding: 0px 0px;
+  position: absolute;
+  min-height: 40px;
+  pointer-events: none;
+  -moz-transition: background-color 0.35s ease-in-out;
+  -o-transition: background-color 0.35s ease-in-out;
+  -webkit-transition: background-color 0.35s ease-in-out;
+  transition: background-color 0.35s ease-in-out;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+}
+@media (min-width: 992px) {
+  .page-footer {
+    position: fixed;
+    background-color: transparent;
+    margin: 5px 0px;
+  }
+}
+.page-footer .title {
+  font-size: 21px;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+.page-footer a {
+  color: rgba(255, 255, 255, 0.8);
+  pointer-events: auto;
+}
+.page-footer a:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+.page-footer .icon-box {
+  color: #cccccc;
+}
+
+.copyright {
+  font-size: 12px;
+  line-height: 16px;
+  color: #878787;
+  margin: 7px 0px;
+}
+
+.footer-block {
+  margin-bottom: 20px;
 }

@@ -13,7 +13,7 @@ export const showTareas = () => {
 var tBody = productoList.getElementsByTagName("tbody")[0];
 
   onGetTasks((querySnapshot) => {
-    let html = "";
+    
     querySnapshot.forEach((taks) => {
 
           // Convertir el campo createdAt a una fecha legible
@@ -26,8 +26,8 @@ var tBody = productoList.getElementsByTagName("tbody")[0];
   // filas
   var cell = row.insertCell(-1);
   var img = document.createElement("img");
-  img.src="${taks.src_img}";
-  img.alt="${taks.nombre}";
+  img.src=taks.src_img?taks.src_img:'';
+  img.alt=taks.nombre?taks.nombre:'';
   cell.appendChild(img);
   cell.appendChild(taks.nombre);
   cell.appendChild(taks.precio);
