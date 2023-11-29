@@ -11,7 +11,7 @@ import './auth/auth.js'
 import './vendor/notify.js'
 import './auth/logout.js'
 import './vendor/menu.js'
-import {showTareas} from  './productos/productos_list.js'
+import {showTareas} from  './productos/productos.js'
 
 
 

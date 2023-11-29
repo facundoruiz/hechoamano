@@ -25,16 +25,15 @@
  <!-- Start Loader -->
  <div class='loading'>
   <div class='loader'>
-  <img src="<%= require('./assets/loader.svg') %>" alt="<%= htmlWebpackPlugin.options.title %> ">  
+  <img src="<%= require('./assets/loader.svg') %>" alt="Cargando..." width="50%">  
   </div>
 </div>
 <!-- End Loader -->
 
-  
-     <!-- Start Header -->
-    <header class='page-header' id='page-header'>
-      <div class='container-full'>
-        <div>
+       <!-- Start Header -->
+    <header class='page-header bg-body' id='page-header'>
+      <div class='container'>
+       
           <div class='navbar-header'>
             <!-- Logo -->
             <a class='logo animate__animated animate__onstart' data-animation-delay='200' data-animation='fadeInDown' href='#'>
@@ -83,7 +82,7 @@
           </div>
           <!-- End Social navigation -->
           
-        </div>
+        
       </div>
     </header>
     <!-- End Header -->
@@ -104,12 +103,20 @@
           </div>
         </div>
       </section>
-      <!-- End Welcome -->
+      <!-- End Welcome
   <section class="container">
  
     <div class="my-3 p-3 bg-body rounded shadow-sm ">
-      <h6 class="pb-2 mb-0 ">Novedades Recientes</h6>
-      <div class="taks-recent"></div>
+      <h5 class="pb-2 mb-0 ">Novedades Recientes</h5>
+      
+        <div class="taks-recent row" data-masonry='{"percentPosition": true }'></div>
+      
+    </div>   </section>-->
+    <section class="bg-light py-5 py-xl-6">
+    <div class="container overflow-hidden">
+      <div class="row gy-3 g-md-3 hcf-isotope-grid">
+        <div class="taks-recent "></div>
+      </div>
     </div>
   </section>
 
@@ -119,11 +126,10 @@
   <div class='container-full'>
     <div class='row'>
       <div class='col-sm-12'>
-        <div>
-          Made with <i class="fa fa-heart highlight" aria-hidden="true"></i> in
-          
+        <div class="">
+          hecho con <i class="bi bi-heart-fill highlight" aria-hidden="true"></i> por <a href="https://x.com/el_facu" target="_blank">@el_facu</a>
         </div>
-        <div class='copyright'>© 2017 - 2030 All rights reserved</div>
+        <div class='copyright'>© 2023 All rights reserved</div>
       </div>
     </div>
   </div>

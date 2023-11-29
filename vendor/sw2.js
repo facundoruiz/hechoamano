@@ -3,11 +3,7 @@ const CACHE_NAME = 'my-pwa-cache';
 
 // Archivos a cachear
 const filesToCache = [
-  '/',
- // '/index.html',
-  '/assets/css/app.min.css',
- // '/assets/js/app.js',
-  '/offline.html',
+     'offline.html',
 ];
 
 // Evento 'install' para el registro del Service Worker
