@@ -26,13 +26,21 @@ module.exports = {
     },
     module: {
         rules: [
-          {
+         /* {
           mimetype: 'image/svg+xml',
           scheme: 'data',
           type: 'asset/resource',
           generator: {
             filename: 'icons/[hash].svg'
-          }},
+          }},*/
+          {
+            test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/i,
+            type: 'asset/resource',
+            generator: {
+                //filename: 'fonts/[name]-[hash][ext][query]'
+                filename: 'fonts/[name][ext][query]'
+            }
+        },
             {
                 test: /\.css$/i,
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
@@ -64,7 +72,8 @@ module.exports = {
                     loader: 'sass-loader'
                   }
                 ]
-              }
+              },
+              { test: /\.svg$/, type: 'asset/source' }
         ],
     },
     plugins: [

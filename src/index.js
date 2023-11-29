@@ -2,7 +2,7 @@
 import './scss/styles.scss';
 
 // script de de uso frecuente
-import './vendor/menu.js'
+import './vendor/darkModeControl.js'
 import {showTareas} from  './productos/productos_list.js'
 import './vendor/notify.js'
 
@@ -51,8 +51,25 @@ window.addEventListener('beforeinstallprompt', (event) => {
 
   
   // Otras funcionalidades de tu PWA
-  
+   /*
+            Loader
+        */
+            // Obtén el elemento con la clase 'loading'
+var loadingElement = document.querySelector('.loading');
+
+// Espera 300 milisegundos antes de ocultar el elemento
+setTimeout(function() {
+  // Oculta el elemento cambiando el estilo
+  loadingElement.style.display = 'none';
+}, 300);
+
+
+
+
 });
+
+
+
 
 
 

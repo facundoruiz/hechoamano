@@ -15,7 +15,7 @@ export const showTareas = () => {
 
           // Convertir el campo createdAt a una fecha legible
       //  const createdAt = new Date(taks.createdAt.seconds * 1000); // Multiplicar por 1000 para convertir a milisegundos
-      const createdAt = getTimeAgo(taks.createdAt);
+     // const createdAt = getTimeAgo(taks.createdAt);
       const li = `
       <div class="col-lg-3 col-sm-6">
       <div class="single-post-wrap style-white">
