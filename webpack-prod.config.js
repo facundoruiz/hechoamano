@@ -31,10 +31,31 @@ module.exports = {
         scheme: 'data',
         type: 'asset/resource',
         generator: {
-          filename: 'icons/[hash].svg'
+          filename: 'svg/[hash].svg'
+
         }
       },
-      
+      { //css para extraer
+        test: /\.(png|jpg|jpeg|svg|gif)$/i,
+        type: 'asset/resource',
+
+        generator: {
+          filename: 'img/[hash][ext]'
+
+        }
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[hash][ext]'
+
+        }
+      },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
       {
         test: /\.(scss)$/,
         use: [{
@@ -63,11 +84,8 @@ module.exports = {
             loader: 'sass-loader'
           }
         ]
-      },{
-        test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       }
-    ],
+   ],
   },
   plugins: [
    // new webpack.DefinePlugin(envKeys),
@@ -83,7 +101,6 @@ module.exports = {
      chunks: ['app','service-worker'],
      favicon: "./src/favicon.ico"
     }),
-    ,
     new HtmlWebpackPlugin({
       title: 'Dashboard',
         hash: true,

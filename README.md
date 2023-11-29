@@ -51,3 +51,5 @@ https://developer.chrome.com/docs/workbox/troubleshooting-and-logging/#debugging
 https://www.youtube.com/playlist?list=PLrAw40DbN0l0p5K-fp4hDVCjZgZIQnSSE
 
 https://javascript.plainenglish.io/how-to-use-environment-variables-in-github-actions-workflows-598b583c1a92
+
+https://www.taniarascia.com/how-to-use-webpack/

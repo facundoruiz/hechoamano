@@ -50,11 +50,9 @@ window.addEventListener('beforeinstallprompt', (event) => {
 });
 
   
-  // Otras funcionalidades de tu PWA
-   /*
-            Loader
-        */
-            // Obtén el elemento con la clase 'loading'
+  
+   /*    Loader     Obtén el elemento con la clase 'loading'    */
+          
 var loadingElement = document.querySelector('.loading');
 
 // Espera 300 milisegundos antes de ocultar el elemento
