@@ -25,6 +25,7 @@
     "css-minimizer-webpack-plugin": "^5.0.1",
     "dotenv": "^16.1.4",
     "firebase": "^9.21.0",
+    "imagesloaded": "^5.0.0",
     "mini-css-extract-plugin": "^2.7.6",
     "terser-webpack-plugin": "^5.3.9",
     "toastify-js": "^1.12.0",

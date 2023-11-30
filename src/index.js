@@ -3,9 +3,10 @@ import "./scss/styles.scss";
 
 // script de de uso frecuente
 import "./vendor/darkModeControl.js";
-import { showTareas } from "./productos/productos_home.js";
+import { showTareas ,resizeInstance} from "./productos/productos_home.js";
 import "./vendor/notify.js";
-import "./vendor/masonry-1.js";
+
+
 
 
 // Create an example popover
@@ -13,9 +14,21 @@ document.querySelectorAll('[data-bs-toggle="popover"]').forEach((popover) => {
   new Popover(popover);
 });
 
+showTareas();
+
+
 // Evento 'DOMContentLoaded' para asegurar que el DOM ha sido cargado
 document.addEventListener("DOMContentLoaded", () => {
-  // Tu código JavaScript aquí
+
+/*    Loader     Obtén el elemento con la clase 'loading'    */
+var loadingElement = document.querySelector(".loading");
+
+  // Espera 300 milisegundos antes de ocultar el elemento
+  setTimeout(function () {
+    // Oculta el elemento cambiando el estilo
+    loadingElement.style.display = "none";
+    
+}, 800);
 
   // Registrar el Service Worker
   if ("serviceWorker" in navigator) {
@@ -48,15 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
     installButton.style.display = "block"; // Mostrar el botón de instalación
   });
 
-  /*    Loader     Obtén el elemento con la clase 'loading'    */
 
-  var loadingElement = document.querySelector(".loading");
-
-  // Espera 300 milisegundos antes de ocultar el elemento
-  setTimeout(function () {
-    // Oculta el elemento cambiando el estilo
-    loadingElement.style.display = "none";
-  }, 600);
 });
-
-showTareas();
+  

@@ -1,3 +1,9 @@
+/*!
+ * imagesLoaded v5.0.0
+ * JavaScript is all like "You images are done yet or what?"
+ * MIT License
+ */
+
 /**
  * @license
  * Copyright 2017 Google LLC
