@@ -655,10 +655,13 @@ SOCIAL
   transition: background-color 0.35s ease-in-out;
   -webkit-backface-visibility: hidden;
   -webkit-transform: translateZ(0);
+      .icon-box {
+        color: #5e0e0e;
+      }
 }
 @media (min-width: 992px) {
   .page-footer {
-    position: fixed;
+   
     background-color: transparent;
     margin: 5px 0px;
   }
@@ -674,9 +677,6 @@ SOCIAL
 }
 .page-footer a:hover {
   color: rgba(163, 124, 124, 0.7);
-}
-.page-footer .icon-box {
-  color: #5e0e0e;
 }
 
 .copyright {
