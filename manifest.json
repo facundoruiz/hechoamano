@@ -2,7 +2,7 @@
     "short_name": "ham",
     "name": "Hecho a Mano ",
     "description": "Cerámica Hecho a Mano ",
-    "scope": "./",
+    "scope": "/",
     "icons": [{
             "src": "./assets/ico/ico_16.png",
             "sizes": "16x16",
