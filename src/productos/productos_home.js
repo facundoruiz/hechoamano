@@ -20,20 +20,20 @@ export const showTareas = () => {
       <div class="hcf-isotope-item">
         <a class="rounded rounded-4" href="#!">
         <div  class="hcf-masonry-card ">
-        
-            <img  alt="${taks.nombre}" class="card-img " loading="lazy" src="${taks.src_img}">
+        <img  alt="${taks.nombre}" class="card-img " loading="lazy" src="${taks.src_img}">
+        <div class="card-category text-white text-center float-end">${taks.category}</div>
+        <div class="card-code float-start text-white"> #${taks.codigo}</div>
             <div class="card-overlay d-flex flex-column justify-content-center bg-dark p-4" style="--bs-bg-opacity: .5;">
-               <h3 class="card-title text-white text-center mb-1">${taks.nombre}</h3>
-               <div class="card-category text-white text-center">${taks.category}</div>
+               <h3 class="card-title text-white text-center mb-1">${taks.nombre} </h3>
                <p class="card-text text-white text-center">${taks.descripcion}</p>
             </div>    
             </div>    
         </a>
     </div>   
     `;
-      html += li;
+    postList.innerHTML += li;
     });
-    postList.innerHTML = html;
+   
   });
 
   

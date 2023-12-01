@@ -1,0 +1,3488 @@
+
+// vars
+// settings
+// $fz: 16px; // size/scale of the loaders
+$fz: unquote('calc(1vw + 1vh - .6vmin)');
+$time: 1s; // time for delay/timing of loaders
+// @media (min-width: 400px) and (max-width: 1024px) { body { $fz: calc(13px + (14 - 11) * ( (100vw - 400px) / ( 1024 - 400))); } }
+// @media (min-width: 1024px) { body { $fz: 14px; } }
+
+$unnecessary-efx: true;
+
+$f: unquote("'Podkova', serif");
+$fb: unquote("'Trebuchet MS', Helvetica, sans-serif");
+// colors
+$random_color: rgba(rd(255),rd(255),rd(255),.5);
+
+$c: ( // colors
+	t: transparent,
+	s: #000,
+	w: #fff,
+	gr: desaturate(rgb(rd(120)+100,rd(120)+100,rd(120)+100), 100%),
+	r: rgb(rd(255),rd(50),rd(50)),
+	g: rgb(rd(50),rd(255),rd(50)),
+	b: rgb(rd(50),rd(50),rd(255)),
+	magenta: #f0f,
+	cyan: #0ff,
+	ok: #080,
+	cancel: #800,
+	bg: $random_color,
+	cp: ( // color palette
+		1: #081E3F,
+		2: #083D56,
+		3: #0E5F76,
+		4: #19A6CF,
+	),
+);
+
+i {
+	font-style: oblique;
+}
+
+[class*='loader'] {
+	position: relative;
+	top: 40%;
+	display: inline-block;
+	margin: 0 auto;
+	cursor: wait;
+	text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+	// -webkit-box-reflect: below .25em linear-gradient(rgba(#fff, .4), rgba(#fff, .1));
+}
+// ----------------------------------------------
+// -------- loader-playfix  ---------------------------
+// ----------------------------------------------
+
+.loader-playflix-button {
+	display: flex;
+	font-size: .75em;
+	font-family: $f;
+	height: 3em;
+	border-radius: .25em;
+	background-color: clr(cp, 2);
+	color: clr(cp, 4);
+	overflow: hidden;
+	counter-reset: playflix-counter 5;
+	appearance: none;
+	border: none;
+	cursor: pointer;
+	transition: all $time/4;
+	animation: playflix-text $time*5 linear infinite forwards;
+	
+	&:hover {
+		background-color: mix(clr(cp, 2), clr(cp, 3), 50%);
+	}
+	
+	&:active {
+		color: clr(w);
+		
+		&,
+		&:after,
+		&:before {
+			animation: none;
+			}
+		&:before {
+			background-color: clr(ok);
+			width: calc(100% + 1em);
+			counter-reset: playflix-counter 0;
+		}
+	}
+	
+	&:before,
+	&:after {
+		pointer-events: none;
+	}
+	
+	&:before {
+		content: attr(data-icon);
+		font-size: 2em;
+		line-height: 1.2;
+		position: absolute;
+		width: 0%;
+		left: -.5em;
+		top: 0;
+		z-index: 0;
+		text-align: left;
+		padding: 0.25em;
+		text-indent: .5em;
+		animation: playflix $time*5 linear infinite forwards;
+	}
+	
+	&:after {
+		content: attr(data-label) '  '  counter(playflix-counter);
+		font-weight: 700;
+		display: block;
+		font-size: 1.5em;
+		line-height: 1;
+		padding: .5em;
+		position: relative;
+		white-space: nowrap;
+		animation: playflix-countdown $time*5 linear infinite forwards;
+}
+	
+	&[data-icon]:not([data-icon=""]) { // if icon is present
+		&:after {
+			padding-left: 2em;
+		}
+	}
+}
+
+@keyframes playflix {
+	0% {
+		width: 0%;
+		background-color: clr(cp, 3);
+	}
+	89% {
+		width: calc(100% + .5em);
+		background-color: clr(cp, 3);
+	}
+	89.5%, 100% {
+		width: calc(100% + .5em);
+		background-color: clr(ok);
+	}
+}
+
+@keyframes playflix-countdown {
+	0% {
+		counter-increment: playflix-counter 0;
+	}
+	20% {
+		counter-increment: playflix-counter -1;
+	}
+	40% {
+		counter-increment: playflix-counter -2;
+	}
+	60% {
+		counter-increment: playflix-counter -3;
+	}
+	80% {
+		counter-increment: playflix-counter -4;
+	}
+	100% {
+		counter-increment: playflix-counter -5;
+	}
+}
+@keyframes playflix-text {
+	0%, 89% {
+			color: clr(cp, 4);
+	}
+	89.5%, 100% {
+			color: clr(w);
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-1  ---------------------------
+// ----------------------------------------------
+
+.loader-wobble { // loading circle cycle
+	font-size: .8em;
+	top: 50%;
+	display: inline-block;
+	width: 5em;
+	height: 1em;
+	line-height: 1.3;
+	position: relative;
+	color: clr(cp, 3);
+	text-align: center;
+	user-select: none;
+	border-bottom: .1em solid;
+	margin-left: -5em;
+	transform: translateX(50%);
+	animation: 
+		loadingText $time infinite ease(wtf) alternate, 
+		loadingBar $time*8 infinite ease(in-out-sine) alternate;
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		animation:
+			loadingTextMove $time infinite ease(wtf) alternate, 
+			loadingText $time infinite ease(wtf) alternate, 
+			loadingBar $time*8 infinite ease(in-out-sine) alternate;
+		filter: drop-shadow(.2em .2em .2em rgba(clr(s), .5));
+	}
+	
+	&:before, &:after {
+		content: '';
+		width: 7em;
+		height: 7em;
+		position: absolute;
+		top: -3em;
+		left: -.5em;
+		right: 0;
+		bottom: 0;
+		border-radius: 50%;
+	}
+	
+	&:before {
+		box-shadow: inset 0 0 0 .2em rgba(clr(cp, 2), .5);
+		animation: loadingInner $time infinite ease(wtf) alternate;
+	}
+	
+	&:after {
+	color: clr(cp, 2); //currentColor; 
+	border-radius: 50%;
+	border: .2em dashed;
+	border-top: .2em solid clr(cp, 3);
+	transform-origin: center center;
+	animation: loading $time infinite ease(full-circle);
+	}
+}
+// -------- loader-1 keyframes ------------------
+@keyframes loading {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes loadingInner {
+	to {
+		transform: scale(0);
+	}
+}
+
+@keyframes loadingText {
+	0% {
+		color: clr(cp, 3);
+		width: 0em;
+	}
+	100% {
+		color: clr(cp, 1);
+		width: 4em;
+	}
+}
+
+@keyframes loadingTextMove {
+	0% {
+		text-indent: 1em;
+	}
+	100% {
+		text-indent: -1em;
+	}
+}
+
+@keyframes loadingBar {
+	0% {
+		width: 0em;
+	}
+	100% {
+		width: 6em;
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-2 ----------------------------
+// ----------------------------------------------
+
+.loader-bricks { // bricks loader
+	position: relative;
+	display: inline-block;
+	font-size: 1rem;
+	width: 8em;
+	height: 1em;
+	z-index: 1;
+	border-style:  solid;
+	border-width: .1rem 0;
+	color: clr(cp, 4);
+	background-image: linear-gradient(
+		to right,
+		transparent 0%,
+		transparent 49.9%,
+		clr(cp,3) 50%,
+		clr(cp,3) 100%
+	);
+	background-size: 25%;
+	animation: loaderBar $time infinite linear;
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		filter: drop-shadow(.3em .3em .3em rgba(clr(s), .5));
+	}
+	
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		right: 0;
+		z-index: 0;
+		width: 1em;
+		height: 1em;
+		margin-top: -.1rem;
+		border: .1rem solid clr(cp, 4);
+		border-width: .1rem 0;
+		color: clr(cp, 3);
+		background-color: currentColor;
+		animation: loaderBox $time*2 infinite linear;
+	}
+	
+	&:after {
+		animation-delay:  $time;
+	}
+}
+// -------- loader-2 keyframes ------------------
+
+@keyframes loaderBar {
+	0% {
+		background-position-x: 0;
+	}
+	100% {
+		background-position-x: 2em;
+	}
+}
+@keyframes loaderBox {
+	0% {
+		color: clr(cp, 3);
+		width: 1em;
+		right: 0;
+		top: 0;
+		border-color: clr(cp,4);
+	}
+	27% {
+		color: clr(cp, 3);
+		width: 1em;
+		right: -1em;
+		top: 0;
+		border-color: transparent;
+		// filter: blur(0px);
+	}
+	37.5% {
+		color: clr(cp, 2);
+		width: 1em;
+		right: -1em;
+		top: -1em;
+		border-color: transparent;
+		// filter: blur(1px);
+	}
+	// 50% {
+	// 	color: clr(cp, 2);
+	// 	width: 1em;
+	// 	right: 4em;
+	// 	top: -1em;
+	// 	border-color: transparent;
+	// }
+	50% {
+	// 100% {
+		color: clr(cp, 2);
+		width: 1em;
+		right: 8em;
+		top: -1em;
+		border-color: transparent;
+		// filter: blur(1px);
+	}
+	55% {
+		color: clr(cp, 3);
+		width: 1em;
+		right: 8em;
+		top: 0em;
+		border-color: transparent;
+		// filter: blur(0px);
+	}
+	100% {
+		color: clr(cp, 3);
+		width: 0em;
+		right: 7em;
+		top: 0;
+		border-color: clr(cp,4);
+	}
+}
+// ----------------------------------------------
+// -------- loader-3 ----------------------------
+// ----------------------------------------------
+
+.loader-funky-bar { // funky loader
+	display: inline-block;
+	width: 5em;
+	height: 1em;
+	border-radius: 2px;
+	position: relative;
+	overflow: hidden;
+	z-index: 0;
+	color: clr(w);
+	box-shadow: 0 0 0 2px clr(cp, 1),
+		0 0 0 4px clr(cp, 3);
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		filter: drop-shadow(.25em .25em .25em rgba(clr(s), .5));
+	}
+	
+	&:before {
+		content: 'loading...';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 0;
+		animation: loaderText $time infinite alternate ease(perpetuum);
+
+		#toggle:checked ~ #sect & { // unnecessary efx
+			animation: 
+				loaderText $time*2 infinite alternate ease(perpetuum),
+				textIndent $time infinite alternate ease(perpetuum);
+			
+		}
+	}
+	
+	&:after {
+		content: '';
+		width: 11em;
+		height: 11em;
+		position: absolute;
+		left: -6em;
+		top: -5em;
+		z-index: 1;
+		box-shadow: 
+			inset 0 0 0 0.5em clr(cp, 3),
+			inset 0 0 0 1em clr(cp, 2),
+			inset 0 0 0 1.5em clr(cp, 3),
+			inset 0 0 0 2em clr(cp, 2),
+			inset 0 0 0 2.5em clr(cp, 3),
+			inset 0 0 0 3em clr(cp, 2),
+			inset 0 0 0 3.5em clr(cp, 3),
+			inset 0 0 0 4em clr(cp, 2),
+			inset 0 0 0 4.5em clr(cp, 3),
+			inset 0 0 0 5em clr(cp, 2),
+			inset 0 0 0 5.5em clr(cp, 3),
+			inset 0 0 0 6em clr(cp, 2);
+		border-radius: 16em 14em / 16em 20em;
+		transform-origin: center center;
+		animation: loaderRotate $time*5 linear infinite, loaderMover $time*15 linear infinite;
+	}
+}
+// -------- loader-3 keyframes ------------------
+@keyframes loaderRotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+@keyframes loaderMover {
+	from {
+		left: -11em;
+	}
+	to {
+		left: -6em;
+	}
+}
+@keyframes textIndent {
+	from {
+		text-indent: -2em;
+	}
+	to {
+		text-indent: 2em;
+	}
+}
+@keyframes loaderText {
+	from {
+		color: clr(cp, 4);
+	}
+	to {
+		color: clr(cp, 1);
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-4 ----------------------------
+// ----------------------------------------------
+.loader-drippy { // drippy drop loader
+	display: inline-block;
+	position: relative;
+	width: 3em;
+	height: 3em;
+	top: 30%;
+	border-radius: 50% 0em 50% 50%;
+	box-shadow: 
+		0 0 0 .25em clr(cp, 1),
+		0 0 0 .5em clr(cp, 3);
+	transform: rotate(135deg);
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		box-shadow: 
+		0 0 0 .25em clr(cp, 1),
+		0 0 0 .5em clr(cp, 3),
+		-.2em -.2em .2em .5em rgba(clr(s), .25);
+	}
+	
+	&:before {
+		content: '';
+		position: absolute;
+		display: block;
+		border-radius: 50% 0em 50% 50%;
+		overflow: hidden;
+		z-index: 0;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-image: 
+			repeating-linear-gradient(
+				45deg,
+				clr(cp, 2) 0,
+				clr(cp, 2) 9px,
+				transparent 10px,
+				transparent 19px
+			);
+		background-position: center center;
+		background-size: 100% 100%;
+		animation: loaderZoom $time ease(downhill) infinite;
+	}
+	
+	&:after {
+		content: '';
+		width: 1em;
+		height: 1em;
+		position: absolute;
+		bottom: 90%;
+		left: 90%;
+		z-index: -2;
+		border-radius: 50%;
+		background-color: clr(cp, 2);
+		box-shadow: 
+			inset -0.05em -0.25em .05em clr(cp, 3);
+		animation: loaderDrip $time*3 ease(gravity) infinite forwards;
+		
+		#toggle:checked ~ #sect & { // unnecessary efx
+			box-shadow: 
+				inset -0.05em -0.25em .05em clr(cp, 3),
+				-.2em -.2em .2em rgba(clr(s), .25);
+		}
+	}
+}
+// -------- loader-4 keyframes ------------------
+
+@keyframes loaderZoom {
+	from {
+		background-size: 200% 200%;
+	}
+	to {
+		background-size: 141% 141%;
+	}
+}
+
+@keyframes loaderDrip {
+	0% {
+		bottom: 105%;
+		left: 105%;
+		width: 0.1em;
+		height: 0.1em;
+		border-radius: 3em 3em 3em 3em;
+		opacity: 1;
+	}
+	70% {
+		bottom: 120%;
+		left: 120%;
+		width: 1em;
+		height: 1em;
+		border-radius: 6em 6em 6em 0;
+		opacity: 1;
+	}
+	80% {
+		bottom: 130%;
+		left: 130%;
+		border-radius: 3em 6em;
+		opacity: 1;
+	}
+	94% {
+		bottom: 150%;
+		left: 150%;
+		border-radius: 2em 6em;
+		opacity: 1;
+	}
+	100% {
+		bottom: 150%;
+		left: 150%;
+		border-radius: .5em 6em;
+		opacity: 0;
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-5 ----------------------------
+// ----------------------------------------------
+.loader-stopwatch { // grannys clock loader
+	display: inline-block;
+	position: relative;
+	top: 30%;
+	width: 5em;
+	height: 5em;
+	border-radius: 50%;
+	border: .38em dotted rgba(clr(cp, 3), .5);
+	transform-origin: center -300%;
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		animation: rotateClock 5s infinite ease-in-out;
+		filter: drop-shadow(.2em .2em .2em rgba(clr(s), .5));
+	}
+	
+	&:before {
+		content: '';
+		position: absolute;
+		left: 50%;
+		top: 2.14em;
+		z-index: 1;
+		display: block;
+		height: 2em;
+		width: 0;
+		transform-origin: center top;
+		box-shadow: 0 0 0 .11em clr(cp,3);
+		animation: rotatePointer $time*3 infinite steps(30) linear;
+	}
+	
+	&:after {
+		content: '\2022';
+		position: absolute;
+		left: .7em;
+		top: .7em;
+		width: 3em;
+		height: 3em;
+		line-height: 0;
+		color: transparent;
+		text-indent: 3em;
+    text-shadow: -3px -5px 3px clr(cp,4);
+		border-radius: 50% 0 50% 50%;
+		border: 3px solid clr(cp, 3);
+		background-color: clr(cp, 2);
+		transform-origin: center center;
+		animation: rotatePointer $time*10 infinite linear;
+	}
+}
+// -------- loader-5 keyframes ------------------
+@keyframes rotatePointer {
+	to {
+		transform: rotate(359deg);
+	}
+}
+
+@keyframes rotateClock {
+	0%, 100% {
+		transform: rotate(-10deg);
+	}
+	50% {
+		transform: rotate(10deg);
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-6 ----------------------------
+// ----------------------------------------------
+.loader-peace-sign { // peace sign loader
+	display: inline-block;
+	position: relative;
+	border-radius: 50%;
+	border: .5em solid currentColor;
+	top: 30%;
+	width: 5em;
+	height: 5em;
+	color: clr(cp, 2);
+	text-align: center;
+	background-color: rgba(clr(cp, 3),.75);
+	animation: peace $time*2 infinite ease(wtf) alternate,
+		boxFill $time*15 infinite ease-out;
+	
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		display: block;
+	}
+	
+	&:before { // |
+		top: 0;
+		left: 1.8em;
+		height: 4.2em;
+		width: 0;
+		//box-shadow: 0 0 0 .25em currentColor;
+		border-left: solid .5em currentColor;
+	}
+	
+	&:after { // L
+		height: 2.5em;
+		width: 2.5em;
+		bottom: -.5em;
+		left: .78em;
+		transform-origin: center center;
+		border: solid currentColor;
+		border-width: .5em .5em 0 0;
+		transform: rotate(-45deg);
+	}
+}
+// -------- loader-6 keyframes ------------------
+@keyframes peace {
+	to {
+		color: clr(cp, 2);
+		transform: scale(1.2) rotate(-10deg);
+	}
+}
+
+@keyframes boxFill {
+	0% {
+		box-shadow: 
+			inset 0 5em 0 clr(cp, 1),
+			0 0 0 clr(cp, 2);
+	}
+	90%, 93%, 100% {
+		box-shadow: 
+			inset 0 0 0 clr(cp, 1),
+			0 0 0 clr(cp, 2);
+	}
+	92% {
+		box-shadow: 
+			inset 0 0 0 clr(cp, 1),
+			0 0 2em .5em clr(cp, 2);
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-7 ----------------------------
+// ----------------------------------------------
+.loader-bubble-disks { // two bubbling circles
+	position: relative;
+	display: inline-block;
+	margin: 0 auto;
+	width: 3em;
+	height: 3em;
+	transform: translateX(-50%);
+	
+	&:before,
+	&:after {
+		content: '';
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		border-radius: 50%;
+		color: rgba(clr(cp, 3), .25);
+		background-color: currentColor;
+		
+		#toggle:checked ~ #sect & { // unnecessary efx
+			box-shadow: .1em .1em .1em rgba(clr(s), .25);
+		}
+		
+		animation: scaleCircles $time*2 infinite ease(perpetuum) alternate;
+	}
+	
+	&:after {
+		animation-delay: -$time;
+	}
+}
+// -------- loader-7 keyframes ------------------
+@keyframes scaleCircles {
+	0% {
+		z-index: 1;
+		// color: rgba(clr(cp, 3), .25);
+		transform: scale3d(0,0,0);
+	}
+	100% {
+		z-index: 2;
+		// color: rgba(clr(cp, 3), .25);
+		transform: scale3d(1,1,1);
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-8 ----------------------------
+// ----------------------------------------------
+.loader-cycle-disks { // two discs
+	position: relative;
+	display: inline-block;
+	margin: 0 auto;
+	width: 4em;
+	height: 2em;
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		filter: url('#filter-goo2');
+	}
+	
+	&:before,
+	&:after {
+		content: '';
+		left: 0;
+		position: absolute;
+		width: 2em;
+		height: 2em;
+		border-radius: 50%;
+		background-color: clr(cp, 3);
+		// box-shadow: .25em .25em .25em rgba(clr(s), .25);
+		animation: movingCircles $time*2 infinite ease-in-out;
+	}
+	
+	&:after {
+		animation-delay: -$time;
+		background-color: clr(cp, 2);
+	}
+}
+// -------- loader-8 keyframes ------------------
+@keyframes movingCircles {
+	0% {
+		z-index: 1;
+		transform: translate(0, 0);
+	}
+	50% {
+		z-index: 1;
+		transform: translate(120%, 0);
+	}
+	50.1% {
+		z-index: 0;
+		transform: translate(120%, 0);
+	}
+	100% {
+		z-index: 0;
+		transform: translate(0, 0);
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-9 ----------------------------
+// ----------------------------------------------
+.loader-progress-bar { // progress bar mac like
+	width: 6em;
+	height: 1.5em;
+	border-radius: .5em;
+	border: .125em solid;
+	color: clr(cp, 3);
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		filter: drop-shadow(.2em .2em .2em rgba(clr(s), .5));
+	}
+	
+	&:before, &:after {
+		content: '';
+		top: .2em;
+		left: .2em;
+		right: .2em;
+		bottom: .2em;
+		border-radius: .25em;
+		display: block;
+		position: absolute;
+		overflow: hidden;
+	}
+		
+	&:after {
+		right: 100%;
+		animation: 
+			loaderBarInfinite $time*10 infinite linear,
+			loaderBarScroll $time*10 infinite linear;
+		box-shadow: 
+			inset 0 .5em .5em rgba(clr(cp,4), .25),
+			inset 0 -.5em .5em rgba(clr(cp,1), .5);
+		background-image: repeating-linear-gradient(
+		45deg,
+		clr(cp, 2) 0px,
+		clr(cp, 2) 4px,
+		clr(cp, 3) 5px,
+		clr(cp, 3) 9px);
+		background-size: 26px 13px;
+	}
+}
+// -------- loader-10 keyframes -----------------
+@keyframes loaderBarInfinite {
+	from {
+		background-position: 104px 0;
+	}
+	to {
+		background-position: -104px 0;
+	}
+}
+@keyframes loaderBarScroll {
+	to {
+		right: 2%;
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-10 ---------------------------
+// ----------------------------------------------
+.loader-3-bars { // 3 bars loader
+	color: clr(cp, 3);
+	// box-shadow:
+	// 	inset -1px -1px 3px rgba(clr(cp,3), .2),
+	// 	inset 1px 1px 3px rgba(clr(s), .2);
+	width: .75em;
+	height: 2em;
+	top: 60%;
+	left: 1em;
+	border-radius: 2px;
+	background-color: clr(cp, 2);
+	transform: rotate(180deg);
+	transform-origin: center top;
+	animation: da3bars $time infinite ease(downhill);
+
+	#toggle:checked ~ #sect & { // unnecessary efx
+		filter: drop-shadow(-.15em -.15em .15em rgba(clr(s), .25));
+	}
+	
+	&:before, &:after {
+		content: '';
+		position: absolute;
+		width: .75em;
+		height: 2em;
+		display: inline-block;
+		color: clr(cp, 3);
+		// box-shadow:
+		// 	inset -1px -1px 3px rgba(clr(cp,3), .2),
+		// 	inset 1px 1px 3px rgba(clr(s), .2);
+		background-color: clr(cp, 2);		
+		border-radius: 2px;
+		left: 1em;
+		top: 0;
+		animation: da3bars $time infinite ease(downhill);
+		animation-delay: $time/10;
+	}
+	
+	&:after {
+		left: 2em;
+		animation-delay: $time/5;
+	}
+}
+// -------- loader-10 keyframes -----------------
+
+@keyframes da3bars {
+	0%, 100% {
+		height: 2em;
+		background-color: clr(cp, 2);		
+		// color: clr(cp, 4);		
+	}
+	75% {
+		height: 1em;
+		background-color: clr(cp, 2);		
+		// color: clr(cp, 3);		
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-11 ---------------------------
+// ----------------------------------------------
+.loader-radar { // radar loader
+	width: 4em;
+	height: 4em;
+	top: 33%;
+	border-radius: 50%;
+	overflow: hidden;
+	border: 1px solid clr(cp, 3);
+	z-index: 1;
+	background-color: rgba(clr(cp, 2), .2);
+	background-image:
+		repeating-radial-gradient(
+			clr(t) 0,
+			clr(t) .39em,
+			rgba(clr(cp,2), .5) .45em,
+			rgba(clr(cp,2), .5) .5em
+		);
+
+	#toggle:checked ~ #sect & { // unnecessary efx
+		background-image:
+			repeating-radial-gradient(
+				clr(t) 0,
+				clr(t) .39em,
+				rgba(clr(cp,2), .5) .45em,
+				rgba(clr(cp,2), .5) .5em
+			),
+			repeating-radial-gradient(
+				clr(t) 0,
+				clr(t) .39em,
+				rgba(clr(s), .25) .45em,
+				rgba(clr(s), .25) .5em
+			);
+		background-position: 0px 0px, 1px 1px;
+			box-shadow: 
+				.25em .25em .25em rgba(clr(s), .25),
+				inset .25em .25em .25em rgba(clr(s), .25);
+	}
+	
+	&:before, &:after {
+		content: '';
+		position: absolute;
+		display: block;
+	}
+	
+	&:before {
+		z-index: 0;
+		width: 2.5em;
+		height: 2em;
+		top: 50%;
+		left: 50%;
+		transform-origin: left top;
+		border-left: .1em solid clr(cp, 4);
+		background-image: linear-gradient(
+			to right,
+			rgba(clr(cp, 2), .75) 0%,
+			transparent 85%
+		);
+		// box-shadow: inset 0 .25em .5em clr(cp, 1);
+		animation: radar $time*2 infinite linear;
+	}
+	
+	&:after {
+		left: 62%;
+		top: 34%;
+		width: 2px;
+		height: 2px;
+		border-radius: 50%;
+		background-color: currentColor;
+		animation:
+			radarDotGlow $time*2 infinite linear,
+			radarDotMove $time*15 infinite ease(impetus);
+	}
+}
+// -------- loader-11 keyframes -----------------
+@keyframes radar {
+	to {
+		transform: rotate(359deg);
+	}
+}
+
+@keyframes radarDotGlow {
+	0%, 59.9%, 87%, 100% {
+		color: rgba(clr(cp, 4), .33);
+		box-shadow: 0 0 .1em .05em currentColor;
+	}
+	62% {
+		color: rgba(clr(cp, 4), 1);
+		box-shadow: 0 0 .1em .1em currentColor;
+	}
+}
+
+@keyframes radarDotMove {
+	0% {
+		top: 0%;
+		left: 85%;
+	}
+	40% {
+		top: 30%;
+		left: 70%;
+	}
+	100% {
+		top: 50%;
+		left: 50%;
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-12 ---------------------------
+// ----------------------------------------------
+
+.loader-beaker { // laboratory glass
+	top: 30%;
+	width: 2em;
+	height: 4em;
+	border-radius: 5%;
+	border: .15em solid clr(cp, 1);
+	overflow: hidden;
+	z-index: 1;
+	box-shadow: 0 .2em 0 .2em clr(cp, 3);
+	
+		#toggle:checked ~ #sect & { // unnecessary efx
+			// filter: url('#filter-goo2');
+			filter: drop-shadow(-.2em .2em .2em rgba(clr(cp, 3), .3)) url('#filter-goo2');
+			animation: pour $time*15 infinite ease(liquid);
+			
+	}
+
+	&:before {
+		content: '';
+		position: absolute;
+		z-index: -1;
+		left: -1.5em;
+		top: 100%;
+		width: 6em;
+		height: 6em;
+		background-color: rgba(clr(cp, 2), .75);
+		border-radius: 66% 100% 100% 66% / 50% 150% 100% 150%;
+		animation: 
+			waveRot $time*15 infinite ease(liquid);
+	}
+	
+	&:after {
+		content: '        100\a            75\a            50\a            25';
+		white-space: pre;
+		text-align: left;
+		font-size: .5em;
+		font-weight: bold;
+		line-height: 2.3;
+		color: clr(cp, 3);
+		position: absolute;
+		left: 0;
+		top: -.8em;
+		bottom: 0;
+		right: 50%;
+		@include mix(12);
+		background-image: repeating-linear-gradient(
+			to bottom,
+			clr(cp, 2) 0,
+			clr(cp, 2) 1px,
+			clr(t) 2px,			
+			clr(t) 9px			
+		);
+		background-position-y: .9em;
+	}
+}
+
+@keyframes waveRot {
+	to {
+		transform: translateY(-70%) rotate(-1440deg);
+	}
+}
+@keyframes waveRot2 {
+	to {
+		transform: translateY(-65%) rotate(-1080deg);
+	}
+}
+@keyframes pour {
+	0%, 90%, 100% {
+		transform: rotate(0deg);
+	}
+	15% {
+		transform: rotate(45deg);
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-13 ---------------------------
+// ----------------------------------------------
+
+.loader-floppy-disk {
+	border: .2em solid clr(cp, 3);
+	top: 30%;
+	width: 3em;
+	height: 3em;
+	border-radius: 0 10px 0 0;
+	background-image: repeating-linear-gradient(
+		to bottom,
+		clr(cp, 3) 0,
+		clr(cp, 3) 1px,
+		clr(t) 2px,
+		clr(t) 3px,
+		clr(cp, 3) 5px,
+		clr(t) 6px
+	);
+	background-size: 7px 12px;
+	background-repeat: no-repeat;
+	background-position: 42% 0%;
+
+	#toggle:checked ~ #sect & { // unnecessary efx
+		box-shadow: .2em .2em .2em rgba(clr(s), .3);
+}
+
+	&:before {
+		content: 'HD';
+		line-height: 1.4;
+		font-weight: 700;
+		color: clr(cp, 1);
+		position: absolute;
+		left: 8%;
+		bottom: -.15em;
+		width: 80%;
+		height: 1.6em;
+		border-radius: .1em .1em 0 0;
+		background-color: clr(cp, 2);
+		border: .2em solid clr(cp, 3);
+		transform: rotate(180deg);
+		animation: floppyLabel $time*10 infinite linear;
+	}
+	
+	&:after {
+		content: '';
+		position: absolute;
+		left: .65em;
+		top: -.1em;
+		width: 1.5em;
+		height: 1.2em;
+		border-radius: .1em .1em 0 0;
+		border: .3em solid clr(cp, 3);
+		box-shadow: inset .43em 0 0 0 clr(cp, 3);
+		animation: floppy $time infinite linear alternate;
+	}
+}
+
+@keyframes floppy {
+	to {
+		transform: translateX(-30%);
+	}
+}
+
+@keyframes floppyLabel {
+	from {
+		box-shadow: inset 0 0em 0 rgba(clr(cp, 3), .75);
+	}
+	to {
+		box-shadow: inset 0 1.3em 0 rgba(clr(cp, 3), .75);
+	}
+}
+// ----------------------------------------------
+// -------- loader-13 ---------------------------
+// ----------------------------------------------
+
+.loader-zoom {
+	width: 2em;
+	height: 2em;
+
+	#toggle:checked ~ #sect & { // unnecessary efx
+	// @include mix(7);
+		filter: drop-shadow(.2em .2em .2em rgba(clr(s), .3));
+	}
+	
+	&:before, &:after {
+		content: '';
+		position: absolute;
+		width: 2em;
+		height: 2em;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		border: 2px solid clr(cp, 3);
+		background-color: rgba(clr(cp, 2), .5);
+		animation: boxZoom $time*2 infinite ease(overshot) alternate;
+	}
+	
+	&:before {
+	}
+	
+	&:after {
+		// animation-delay: $time;
+		border-radius: 100%;
+		animation-direction: alternate-reverse;
+	}
+}
+
+@keyframes boxZoom {
+	from {
+		z-index: 1;
+		background-color: rgba(clr(cp, 1), 1);
+		transform: /* translate(30%, -30%) */ scale(.5) rotateX(180deg) /* rotateY(0deg) rotateZ(-180deg) */;
+	}
+	to {
+		z-index: 0;
+		border-radius: 10%;
+		transform: scale(1.5) rotateX(0deg) rotateY(180deg)/*  rotateZ(180deg) */;
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-14 ---------------------------
+// ----------------------------------------------
+
+.loader-spinna {
+	width: 4em;
+	height: 4em;
+	top: 25%;
+	border-radius: 50%;
+	overflow: hidden;
+	z-index: 2;
+	background-color: rgba(clr(cp, 1), 1);
+	
+	&:before, &:after {
+		content: '';
+		position: absolute;
+		display: inline-block;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		border-radius: 50%;
+		z-index: 1;
+	}
+	
+	&:before {
+		border: 3px solid rgba(clr(cp,1), 0);
+		box-shadow: inset 0 0 0 3em rgba(clr(cp,1), 1);
+
+		#toggle:checked ~ #sect & { // unnecessary efx
+		border: 3px dotted rgba(clr(cp,1), 1);
+		}
+	}
+	
+	&:after {
+		z-index: 0;
+		border-width: 10px;
+		border-style: solid;
+		border-image: linear-gradient(to bottom, clr(cp, 4) 0%, /* clr(t) 80%, */ clr(t) 100%);
+		border-image-slice: 0 0 0 20;
+		animation: spinnaRot $time infinite linear;
+	}
+}
+
+@keyframes spinnaRot {
+	to {
+		transform: rotate(359deg);
+	}
+}
+
+
+// ----------------------------------------------
+// -------- loader-15 ---------------------------
+// ----------------------------------------------
+
+.loader-pacman {
+	// display: none;
+	width: 7em;
+	height: .75em;
+	// border-top: 3px dotted clr(cp, 2);
+  background: 
+    repeating-radial-gradient(clr(cp, 2), clr(cp, 2) .2em, transparent .2em, transparent 100%);
+  background-size: .8em .8em;
+	animation:
+		pac-dots $time*5 linear infinite;
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		filter: drop-shadow(.2em .2em .2em rgba(clr(s), .3));
+	}
+	
+	&:before, &:after {
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0;
+		top: -.615em;
+		width: 1em;
+		height: 1em;
+		border-radius: 50%;
+		border: 1em solid clr(cp, 3);
+	}
+	
+	&:before {
+		border-color:  clr(t) clr(cp, 3) clr(cp, 3) clr(t);
+		animation: pac-top $time/2 linear infinite alternate;
+	}
+	
+	&:after {
+		border-color: clr(cp, 3) clr(t) clr(t) clr(cp, 3);
+		top: auto;
+		bottom: -.615em;
+		animation: pac-bot $time/2 linear infinite alternate;
+	}
+}
+@keyframes pac-dots {
+	to {
+		background-position: -200% 0;
+	}
+}
+@keyframes pac-move {
+	to {
+				width: 1em;
+	}
+}
+@keyframes pac-top {
+	from {
+		transform: rotate(0deg + 45);
+	}
+	to {
+		transform: rotate(60deg + 45);
+	}
+}
+@keyframes pac-bot {
+	from {
+		transform: rotate(0deg + 45);
+	}
+	to {
+		transform: rotate(-60deg + 45);
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-16 ---------------------------
+// ----------------------------------------------
+
+.loader-pulsing {
+	border-radius: 50%;
+	background-color: currentColor;
+	width: 1.5em;
+	height: 1.5em;
+	color: clr(cp, 2);
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		animation: pulseColor $time*3 ease infinite;
+	}	
+	&:before, &:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		color: clr(cp, 2);
+		background-color: currentColor;
+		width: 100%;
+		height: 100%;
+		display: block;
+		border-radius: 50%;
+		transition: all $time;
+		animation: pulse $time*3 ease-out infinite;
+	}
+	
+	&:after {
+		animation-delay: $time/2.5;
+	animation-timing-function: ease(pendulum);
+	}
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0);
+		color: clr(cp, 2);
+	}
+	75%, 100% {
+		transform: scale(4);
+		color: clr(t);
+	}
+}
+@keyframes pulseColor {
+	50%, 90% {
+		color: clr(cp, 2);
+	}
+	70% {
+		color: clr(cp, 3);
+	}
+}
+
+// ----------------------------------------------
+// -------- loader-16 ---------------------------
+// ----------------------------------------------
+.loader-battery {
+	top: 25%;
+	width: 2em;
+	height: 5em;
+	border: .2em solid;
+	border-radius: .25em;
+	z-index: 1;
+	color: clr(cp, 2);
+	animation: batteryColor $time*10 linear infinite;
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		// transform: rotate(90deg);
+		filter: drop-shadow(.3em .3em .3em rgba(clr(s), .3));
+	}
+	&:before, &:after {
+		content: '';
+		position: absolute;
+		display: inline-block;
+	}
+	
+	&:before {
+		@include mix(8);
+		content: '+\a\a\a-';
+		white-space: pre;
+		// position: fixed;
+		padding-top: .3em;
+		line-height: 1.15;
+		font-weight: bold;
+		border: .1em solid;
+		border-width: .2em 0 0 0;
+		width: 1em;
+		left: 50%;
+		top: -.45em;
+		z-index: 4;
+		border-radius: .1em .1em 0 0;
+		transform: translateX(-50%);
+	}
+	
+	&:after {
+		// width: 100%;
+		// height: 100%;
+		top: .2em;
+		left: .2em;
+		right: .2em;
+		bottom: .2em;
+		z-index: 1;
+		box-shadow: inset 0 0 0;
+		animation: batteryFill $time*10 linear infinite;
+	}
+}
+
+@keyframes batteryFill {
+	to {
+		box-shadow: inset 0 -4.5em 0;
+	}
+}
+
+@keyframes batteryColor {
+	96.5% {
+		color: clr(cp, 3);
+	}
+	97%, 99% {
+		color: clr(cp, 4);
+	}
+}
+
+// ------------------------------------
+// -----------------------------------
+
+.loader-vinyl {
+	width: 4em;
+	height: 4em;
+	top: 28%;
+	z-index: 1;
+	border-radius: 50%;
+	overflow: hidden;
+	border: .2em solid clr(cp, 2);
+		background-image:
+			repeating-radial-gradient(
+				clr(t) 0px,
+				clr(t) 1px,
+				rgba(clr(cp, 2), .3) 2px,
+				rgba(clr(cp, 2), .3) 3px
+			);
+	background-position: 0 0;
+	// animation: grooves $time linear infinite;
+
+	&:before {
+		position: absolute;
+		content: '';
+		top: 0.8em;
+    left: -0.65em;
+		width: 0;
+		height: 0;
+		display: block;
+    border-width: 1em 2.5em;
+		border-style: solid;
+    border-color: transparent rgba(clr(cp, 3), .6);
+		animation: lightHouseTurn $time*3 linear infinite;
+	}
+	
+	&:after {
+		content: '';
+		position: absolute;
+		z-index: 2;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: -.2em;
+		border-radius: 50%;
+		background-image:
+			radial-gradient(
+				clr(cp, 1) 0%,
+				clr(cp, 2) 7%,
+				clr(cp, 2) 25%,
+				clr(t) 25.1%
+			),
+		;
+	}
+}
+
+@keyframes lightHouseTurn {
+	to {
+		transform: rotate(359deg);
+	}
+}
+
+@keyframes grooves {
+	from {
+		background-image:
+			repeating-radial-gradient(
+				clr(t) 0px,
+				clr(t) 2px,
+				clr(cp, 2) 3px,
+				clr(cp, 2) 5px
+			);
+	}
+	
+	to {
+		background-image:
+			repeating-radial-gradient(
+				clr(cp,2) 0px,
+				clr(cp,2) 1px,
+				clr(t) 2px,
+				clr(t) 4px,
+				clr(cp,2) 5px,
+				clr(cp,2) 6px
+			);
+	}
+}
+// ----------------------------------------------
+// -------- loader-18 ---------------------------
+// ----------------------------------------------
+
+td[data-3d] {
+	perspective: 600px;
+		#toggle:checked ~ #sect & { // unnecessary efx
+			filter: drop-shadow(.2em .2em .2em rgba(clr(s), .2));
+	}
+}
+
+.loader-triangle {
+	width: 4em;
+	height: 1.5em;
+	line-height: 1.5;
+	color: clr(cp, 4);
+	background-color: clr(cp, 2);
+	// transform: rotateY(80deg);
+	transform-style: preserve-3d;
+	transform-origin: center center -1.15em;
+	animation:
+		triRot $time*3 linear infinite reverse,
+		reflex $time*3 linear infinite reverse;
+
+	&:before, &:after, & {
+		background-size: 12em 2em;
+		
+		#toggle:checked ~ #sect & { // unnecessary efx
+			text-shadow: 2px 2px 2px rgba(clr(s), .5);
+			background-image: repeating-linear-gradient(
+					to right,
+					rgba(clr(s), .15) 0em,
+					rgba(clr(s), .15) 3em,
+					clr(t) 4.5em,
+					clr(t) 7.5em,
+					rgba(clr(w), .05) 9em,
+					rgba(clr(w), .05) 13em
+				);
+		}
+	}
+	
+	&:before, &:after {
+		// backface-visibility: hidden;
+		background-color: clr(cp, 2);
+		position: absolute;
+		width: 4em;
+		height: 1.5em;
+		top: 0;
+		animation:
+			reflex $time*3 linear infinite reverse;
+		}
+	
+	&:before {
+		content: 'wait…';
+		left: -100%;
+		transform-origin: right center;
+		transform: rotateY(-121deg);
+		animation-delay: -$time;
+	}
+	
+	&:after {
+		content: 'please';
+		right: -100%;
+		transform-origin: left center;
+		transform: rotateY(120deg);
+		animation-delay: -$time*2;
+	}
+}
+
+// @keyframes triRot {
+// 	0%, 2.9% {
+// 		transform: rotateY(0deg);
+// 	}
+// 	30.3%, 36.3% {
+// 		transform: rotateY(120deg);
+// 	}
+// 	63.6%, 69.6% {
+// 		transform: rotateY(240deg);
+// 	}
+// 	96.9%, 100% {
+// 		transform: rotateY(360deg);
+// 	}
+// }
+@keyframes triRot {
+	0%{
+		transform: rotateY(0deg);
+	}
+	33.3% {
+		transform: rotateY(120deg);
+	}
+	66.6% {
+		transform: rotateY(240deg);
+	}
+	100% {
+		transform: rotateY(360deg);
+	}
+}
+
+@keyframes reflex {
+	0% {
+		background-position-x: -4em;
+	}
+	100% {
+		background-position-x: -16em;
+	}
+}
+
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+td[data-3d] {
+	perspective: 600px;
+}
+
+.loader-road {
+	font-size: .66em;
+	z-index: 1;
+	top: 45%;
+	width: 4em;
+	height: 28em;
+	border-style: solid;
+	border-width: 0 .2em;
+	color: clr(cp, 3);
+	background-color: rgba(clr(cp, 2), .2);
+	transform-style: preserve-3d;
+	transform: rotateX(87deg);
+	transform-origin: center top;
+	
+	&:before, &:after {
+		content: '';
+		position: absolute;
+	}
+	
+	&:before {
+		content: '--------';
+		white-space: pre;
+		line-height: .5;
+		width: .2em;
+		left: 1.8em;
+		z-index: 0;
+		top: 0;
+		bottom: 0;
+		text-indent: -1.75em;
+		font-weight: bold;
+		background-image: repeating-linear-gradient(
+			to bottom,
+			clr(cp, 3) 0em,
+			clr(cp, 3) 2em,
+			clr(t) 2.01em,
+			clr(t) 4em
+		);
+		background-size: 2em 4em;
+		background-position: 0 0;
+		animation: 
+			middleTrack $time linear infinite,
+			middleTrackText $time*8 linear infinite,
+			;
+	}
+	
+	&:after {
+		font-size: .5em;
+		content: 'loading';
+		line-height: 1.2;
+		border: .2em solid clr(cp, 3);
+		color: clr(cp, 4);
+		border-width: .2em .2em 0;
+		height: 3.75em;
+		z-index: 2;
+		top: 0; //27em;
+		left: -.2em;
+		right: -.2em;
+		border-radius: 1em 1em 0 0;
+		box-shadow: 
+			inset 0 1em 0 rgba(clr(cp, 1), .5),
+			inset 0 1.2em 0 clr(cp, 3),
+			;
+		transform-origin: center bottom;
+		transform: rotateX(-87deg) translateZ(-1px);
+		animation: highwaySign $time*5 linear infinite;
+	}
+}
+
+@keyframes middleTrackText {
+	0%, 50.1%, 100% {
+		padding-top: 0;
+	}
+	50% {
+		padding-top: 27em;
+	}
+}
+
+@keyframes middleTrack {
+	to {
+		background-position: 0 8em;
+	}
+}
+
+@keyframes highwaySign {
+	0% {
+		transform: rotateX(-87deg) translateZ(0) translateY(0em);
+		opacity: 0;
+		filter: blur(.25em);
+	}
+	10% {
+		opacity: 1;
+		filter: blur(.1em);
+	}
+	80% {
+		transform: rotateX(-87deg) translateZ(53em) translateY(2.7em);
+		opacity: 1;
+		filter: blur(0em);
+	}
+	81% {
+		opacity: 0;
+		transform: rotateX(-87deg) translateZ(53.1em) translateY(2.7em);
+	}
+	100% {
+		opacity: 0;
+		transform: rotateX(-87deg) translateZ(0em) translateY(0em);
+	}
+}
+
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+
+.loader-wheel {
+	width: 5em;
+	height: 5em;
+	border-radius: 50%;
+	border: .2em solid;
+	color: clr(cp, 2);
+	background-color: rgba(clr(cp, 2), .2);
+	animation: spinTheWheel $time*4 ease(downhill) infinite;
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		animation: rollTheWheel $time*4 ease(downhill) infinite alternate;
+		box-shadow: 0 0 .5em .2em rgba(clr(s), .25);
+	}
+	
+	@keyframes spinTheWheel {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(359deg * 4);
+		}
+	}
+
+	@keyframes rollTheWheel {
+		from {
+			transform: translateX(-100%) rotate(0deg);
+		}
+		to {
+			transform: translateX(100%) rotate(359deg);
+		}
+	}
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		border-radius: 50%;
+		border-width: .2em;
+	}
+	
+	&:before {
+		width: 4em;
+		height: 4em;
+		left: .3em;
+		top: .3em;
+		border-style: dotted;
+	}
+	
+	&:after {
+		width: 3em;
+		height: 3em;
+		border-style: solid;
+		left: .8em;
+		top: .8em;
+		background-color: clr(cp, 1);
+		background-image:
+			radial-gradient(
+				clr(cp,1) 0,
+				clr(cp,2) 1px,
+				clr(cp,3) 2px,
+				clr(cp,2) 4px,
+				clr(t) 		5px
+			);
+		background-repeat: no-repeat;
+	}
+}
+
+
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+
+.loader-disc-bouncer {
+	width: 5em;
+	height: 5em;
+	border-radius: 50%;
+	background-color: clr(cp, 2);
+	z-index: 0;
+	
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		border-radius: 50%;
+	}
+
+		&,
+		&:before,
+		&:after {
+			#toggle:checked ~ #sect & { // unnecessary efx
+				box-shadow: 0 0 .75em  rgba(clr(s), .5);
+			}
+}
+	
+	&:before {
+		width: 3em;
+		height: 3em;
+		left: 1em;
+		top: 1em;
+		z-index: 1;
+		background-color: clr(cp,3);
+			animation: bounce-disks $time infinite alternate ease(downhill);
+	}
+	
+	&:after {
+		width: 1em;
+		height: 1em;
+		left: 2em;
+		top: 2em;
+		background-color: clr(cp,4);
+		z-index: 2;
+			animation: bounce-disks2 $time $time/2 infinite alternate ease(downhill);
+	}
+}
+
+@keyframes bounce-disks {
+	to {
+		transform: scale(1.5);
+	}
+}
+@keyframes bounce-disks2 {
+	to {
+		transform: scale(2);
+	}
+}
+
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+
+.loader-butterfly {
+	font-size: 2em;
+	width: 2em;
+	height: 2em;
+	transform: rotateZ(-13deg);
+	animation: insect-fly $time/3 infinite alternate ease(swing);
+	
+	&:before, 
+	&:after {
+		content: '';
+		position: absolute;
+		width: 1em;
+		height: 1.5em;
+		border: 1px solid clr(cp, 3);
+		background-color: rgba(clr(cp, 2), .5);
+		animation: wings $time/3 infinite ease(full-circle) alternate;
+	}
+	
+	&:before {
+		left: 0;
+		border-radius: 40% 20% 50% 50%;
+		transform-origin: right center;
+	}
+	
+	&:after {
+		right: 0;
+		border-radius: 20% 40% 50% 50%;
+		transform-origin: left center;
+		animation-direction: alternate-reverse;
+	}
+	
+	@keyframes wings {
+		from {
+				transform: rotateX(60deg) rotateY(-60deg);
+		}
+		to {
+				transform: rotateX(60deg) rotateY(60deg);
+		}
+	}
+	
+	@keyframes insect-fly {
+		from {
+			margin-top: -.3em;
+		}
+		to {
+			margin-top: .3em;
+		}
+	}
+}
+
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+.loader-blow-up {
+	width: 3em;
+	height: 3em;
+	position: relative;
+	z-index: 2;
+	
+		#toggle:checked ~ #sect & { // unnecessary efx
+			filter: drop-shadow(.1em .1em .1em rgba(clr(s), .2));
+		}
+	
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		left: .75em;
+		top: .75em;
+		border-radius: 50%;
+		background-color: clr(cp, 2);
+		width: 1.5em;
+		height: 1.5em;
+		z-index: 1;
+		animation: blow-grow $time*4 infinite ease(swing);
+	}
+	
+	&:after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 1rem;
+		height: 1rem;
+		z-index: 0;
+		border-radius: 50%;
+		transform: translate(-50%, -50%);
+		animation: 
+			blow-fade-in $time infinite ease(swing),
+			blow-shadow $time infinite ease(swing);
+	}
+		
+	@keyframes blow-fade-in {
+		0% {
+			opacity: 0;
+		}
+		2%, 100% {
+			opacity: 1;
+		}
+	}
+	
+	@keyframes blow-shadow {
+		0% {
+			box-shadow: 
+				-4em 0 0 .015em clr(cp, 2),
+				4em 0 0 .015em clr(cp, 2);
+		}
+		75%, 100% {
+			box-shadow: 
+				0 0 0 .4em clr(cp, 2),
+				0 0 0 .4em clr(cp, 2);
+		}
+	}
+
+	@keyframes blow-grow {
+		0% {
+			transform: scale(0);
+			background-color: clr(cp, 2);
+		}
+		25% {
+			transform: scale(.5);
+			background-color: clr(cp, 2);
+		}
+		50% {
+			transform: scale(1);
+			background-color: clr(cp, 3);
+		}
+		75% {
+			transform: scale(1.5);
+			background-color: clr(cp, 3);
+		}
+		100% {
+			transform: scale(2);
+			background-color: clr(cp, 4);
+		}
+	}
+}
+
+
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+.loader-pendulums {
+	font-size: 2rem;
+	width: 2em;
+	height: 2em;
+	border-radius: 50%;
+	background-image: radial-gradient(
+		circle at center center,
+		clr(cp, 2) 0%,
+		clr(cp, 2) 32.9%,
+		clr(t) 33%,
+		clr(t) 100%
+	);
+	border: .1em solid rgba(clr(cp, 2), .25);
+	// box-shadow: inset 0 0 0 2px rgba(clr(cp, 2), .25), 0 0 0 2px rgba(clr(cp, 2), .25);
+	
+	&:before,
+	&:after {
+		content: '';
+		width: 2em;
+		height: 2em;
+		left: -.1em;
+		top: -.1em;
+		padding: .1em;
+		display: block;
+		border-radius: 50%;
+		position: absolute;
+		transform-origin: center center;
+		border: .1em solid;
+		border-color: clr(cp, 4) clr(t) clr(t) clr(t);
+		animation: pendulum infinite $time*2 easing(pendulum);
+	}
+	
+	&:before {
+		border-color: clr(cp, 3) clr(t) clr(t) clr(t);
+		animation-delay: -$time;
+		animation-name: pendulum2;
+	}
+}
+
+@keyframes pendulum {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(359deg);
+	}
+}
+
+@keyframes pendulum2 {
+	from {
+		transform: rotate(180deg);
+	}
+	to {
+		transform: rotate(520deg);
+	}
+}
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+$offset-discs: 180 + 45;
+
+.loader-wheel-of-fortune {
+	font-size: 0.66em;
+	width: 5em;
+	height: 5em;
+	border-radius: 50%;
+	// background-color: clr(cp, 2);
+	position: relative;
+	z-index: 0;
+	color: rgba(clr(cp, 4), .75);
+	border: .1em solid clr(cp, 3);
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		filter: drop-shadow(.1em .1em .1em rgba(clr(s),.5));
+		text-shadow: .1em .1em .1em rgba(clr(s),.75);
+	}
+	
+	&:before,
+	&:after {
+		content: '';
+		
+		#toggle:checked ~ #sect & { // unnecessary efx
+			content: '°';
+		}
+		
+		color: clr(cp, 4);
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		border-width: 2.25em;
+		border-style: solid;
+		border-color: clr(cp, 3) clr(cp,1);
+		z-index: -1;
+		opacity: 0.5;
+		animation: wheel-of-fortune $time*5 ease(gravity) infinite;
+
+		#toggle:checked ~ #sect & { // unnecessary efx
+			animation:
+				wheel-of-fortune $time*5 ease(gravity) infinite,
+				wheel-of-fortune-blur $time*5 ease-in-out infinite;
+		}
+	}
+	
+	&:after {
+		border-color: clr(cp, 2) clr(cp,3);
+		transform: rotate(0deg + $offset-discs);
+		animation-name: wheel-of-fortune-2;
+
+		#toggle:checked ~ #sect & { // unnecessary efx
+			animation-name:
+				wheel-of-fortune-2,
+				wheel-of-fortune-blur;
+		}
+	}
+}
+
+@keyframes wheel-of-fortune {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(359deg * 5);		
+	}
+}
+
+@keyframes wheel-of-fortune-2 {
+	0% {
+		transform: rotate(0deg + $offset-discs);
+	}
+	100% {
+		transform: rotate(359deg * 5 + $offset-discs);		
+	}
+}
+
+@keyframes wheel-of-fortune-blur {
+	0%, 100% {
+		filter: blur(3px);
+	}
+	50% {
+		filter: blur(0px);		
+	}
+}
+
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+.loader-gears {
+	// background-color: rgba(clr(cp, 2), .5);
+	position: relative;
+	width: 3em;
+	height: 3em;
+	overflow: hidden;
+	border-radius: .25em;
+	// border: .1em solid clr(cp, 2);
+	box-shadow: 
+		0 0 0 .1em clr(cp, 2),
+		inset 0 0 0 3em rgba(clr(cp, 2), .5);
+
+	#toggle:checked ~ #sect & { // unnecessary efx
+		filter: drop-shadow(.5em .5em .25em rgba(clr(s), .25));
+	}
+
+	&:before, 
+	&:after {
+		content: '';
+		z-index: 1;
+		display: block;
+		position: absolute;
+		width: 2.7em;
+		height: 2.7em;
+		border-radius: 50%;
+		border: .16em dashed clr(cp, 1);
+		box-shadow: 
+			/* inset 0 0 0 .1em clr(cp,1),
+			inset 0 0 0 .2em clr(cp,2), */
+			inset 0 0 0 .9em clr(cp,1)/* ,
+			inset 0 0 0 .96em clr(cp,2) */;
+		animation: gear-rotate infinite linear $time*3 forwards;
+	}
+	
+	&:before {
+		left: -.7em;
+		top: 1.1em;
+
+	#toggle:not(:checked) ~ #sect & { // :not() unnecessary efx
+			filter: drop-shadow(0 0 1.15em rgba(clr(cp, 4), 1));
+		}
+		
+		#toggle:checked ~ #sect & { // unnecessary efx
+			animation: 
+				gear-rotate infinite linear $time*3 forwards,
+				gear-glow infinite linear $time*6 forwards;
+		}
+	}
+	&:after {
+		left: 1.15em;
+		top: -.85em;
+		animation-direction: reverse;
+			}
+	
+	
+}
+
+@keyframes gear-rotate {
+	to {
+		transform: rotate(359deg);
+	}
+}
+
+@keyframes gear-glow {
+	0%, 100% {
+		filter: drop-shadow(0 0 0 rgba(clr(cp, 4), 0));
+	}
+	
+	60% {
+		filter: drop-shadow(0 0 1.75em rgba(clr(cp, 4), 1));
+
+	}
+}
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+.loader-wiggle {
+	border-radius: 50%;
+	width: 4em;
+	height: 4em;
+	opacity: 0.5;
+	background-color: clr(cp, 2);
+	position: relative;
+
+	
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 0;
+		border-radius: 50%;
+		background-color: clr(magenta);
+		@include mix(3);
+	}
+	
+	&:after {
+		background-color: clr(cyan);
+			animation: wiggle-r $time ease(gravity) infinite forwards;
+}
+	
+	&:before {
+		animation: wiggle-l $time ease(gravity) infinite forwards;
+	}
+}
+
+@keyframes wiggle-l {
+	0%, 15%, 25%, 100%  {
+		transform: translate(0, 0);
+	}
+	17% {
+		transform: translate(-20%, 0);
+	}
+	22% {
+		transform: translate(30%, 0);
+	}
+	24% {
+		transform: translate(-10%, 0);
+	}
+}
+@keyframes wiggle-r {
+	0%, 25%, 35%, 100%  {
+		transform: translate(0, 0);
+	}
+	27% {
+		transform: translate(20%, 0);
+	}
+	32% {
+		transform: translate(-30%, 0);
+	}
+	34% {
+		transform: translate(10%, 0);
+	}
+}
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+.loader-drip {
+	
+	$left-position: 90%;
+	
+	// text-decoration: underline;
+	color: clr(cp, 4);
+	position: relative;
+	// background-color: clr(cp, 3);
+	#toggle:checked ~ #sect & { // unnecessary efx
+		filter: url('#filter-goo2');
+	}
+	
+	&:before,
+	&:after {
+		content: '';
+		background-color: currentColor;
+		position: absolute;
+	}
+	
+	&:before { // drip-line
+		width: 3px;
+		height: 1px;
+		z-index: 2;
+		top: calc(1em - 1px);
+		left: $left-position;
+		border-radius: 0% 40% 40% 0%;
+		animation: drip-line $time*5 $time*2 ease(gravity) infinite forwards;
+		
+		#toggle:checked ~ #sect & { // unnecessary efx
+			filter: url('#turbulence-4');
+		}
+	}
+	&:after { // drip
+		width: 1px;
+		height: 1px;
+		top: 1em;
+		left: $left-position;
+		z-index: 0;
+		border-radius: 0 50% 50% 50%;
+		transform: rotate(45deg) translate(-33%, 0%);
+		animation: drip $time*5 $time*2 ease(gravity) infinite forwards;
+		
+		#toggle:checked ~ #sect & { // unnecessary efx
+			filter: url('#turbulence-3');
+			box-shadow: inset -.15em 0 .15em rgba(clr(s), .24);
+		}
+
+	}
+}
+
+@keyframes drip-line {
+	to {
+		height: 1.2em;
+	}
+}
+@keyframes drip {
+	to {
+		top: 2em;
+		width: 7px;
+		height: 7px;
+	}
+}
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+
+.loader-3-dots {
+	$time: $time/3;
+	--pos: 10%;
+	--post: 10.1%; //calc(var(--pos) + .1);
+	
+	width: 4em;
+	height: 1em;
+	position: relative;
+	
+	&:before,
+	&:after {
+		content: '';
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	&,
+	&:before,
+	&:after { 
+		background-image: radial-gradient(
+				circle at center,
+				clr(cp, 2) 0%,
+				clr(cp, 2) var(--pos),
+				clr(t) var(--post),
+			);
+		background-size: 2em 2em;
+		background-repeat: no-repeat;
+		animation: pulse-dot $time ease(full-circle) infinite alternate;
+	}
+	
+	& {
+		background-position: 100% 50%;
+
+	}
+	&:before {
+			background-position: 50% 50%;
+			animation-delay: -$time/2;
+	}
+	&:after {
+			background-position: 0% 50%;
+			animation-delay: -$time;
+	}
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+		
+	}
+	
+	@keyframes pulse-dot {
+		0% {
+			--pos: 10%;
+		}
+		33% {
+			--pos: 15%;
+		}
+		50% {
+			--pos: 20%;
+		}
+		66% {
+			--pos: 25%;
+		}
+		100% {
+			--pos: 30%;
+		}
+	}
+}
+
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+
+.loader-ball {
+	width: 4em;
+	height: 4em;
+	border: .25em solid clr(cp, 4);
+	border-radius: 50%;
+	overflow: hidden;
+	position: relative;
+	mask: radial-gradient(
+			ellipse at center,
+			rgba(0,0,0,0) 0%,
+			rgba(0,0,0,0) 20%,
+			rgba(0,0,0,1) 20.1%,
+			rgba(0,0,0,1) 75%,
+			rgba(0,0,0,1) 100%
+		);
+	animation: bouncing-ball 1.5*$time linear infinite;
+
+	
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 50%;
+		left: 0;
+		right: 0;
+		animation: ball-rotate 6*$time linear infinite;
+	}
+	
+	&:before {
+		top: 0;
+		background-color: clr(cp, 3);
+		transform-origin: center bottom;
+	}
+	
+	&:after {
+		top: 50%;
+		background-color: clr(cp, 2);
+		transform-origin: center top;
+	}
+}
+
+@keyframes ball-rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(8*360deg - 1);
+	}
+}
+
+@keyframes bouncing-ball {
+	0%   {
+		transform: scale(1,1) translateY(-80%);
+	}
+	25%   {
+		transform: scale(1,1.1) translateY(-45%);
+	}
+	50%   {
+		transform: scale(1,1.5) translateY(10%);
+	}
+	66%   {
+		transform: scale(2,.75) translateY(25%);
+	}
+	75%   {
+		transform: scale(1,1.25) translateY(10%);
+	}
+	100%   {
+		transform: scale(1,1) translateY(-80%);
+	}
+}
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+
+.loader-inzoom {
+	width: 3em;
+	height: 3em;
+	// border-radius: 50%;
+	// overflow: hidden;
+	// clip-path: polygon(
+	// 	25% 0%,
+	// 	75% 0%,
+	// 	100% 50%,
+	// 	75% 100%,
+	// 	25% 100%,
+	// 	0% 50%
+	// );
+	
+	&:before,
+	&:after {
+		content: '';
+		display: block;
+		clip-path: polygon(
+			50% 0%,
+			100% 39%,
+			81% 100%,
+			19% 100%,
+			0% 39% 
+		);
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		animation: inzoom $time*2 ease(gravity) forwards infinite;
+		background-color: clra(.5, cp, 4);
+		// mix-blend-mode: difference;
+	}
+	
+	&:after {
+		animation-delay: -$time;
+		background-color: clra(.5, cp, 2);
+	}
+}
+	
+	@keyframes inzoom {
+		50% {
+			width: 0;
+			height: 0;
+			transform: translate(-50%, -50%) rotate(360deg);
+		}
+	}
+
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+
+.loader-blob {
+	width: 4em;
+	height: 4em;
+	box-shadow: 0 0 0 .2ex;
+	overflow: hidden;
+	color: clr(cp, 4);
+	border-radius: 60%;
+	mix-blend-mode: exclude;
+	--dist: -80%;
+	--br1x: calc(19% - var(--dist, 0%));
+	--br2x: calc(41% - var(--dist, 0%));
+	--br3x: calc(62% - var(--dist, 0%));
+	--br1y: 88%;
+	--br2y: 85%;
+	--br3y: 88%;
+	--moonlight: #{clra(.5, w)};
+
+		&.loading {
+			animation:
+					blob-rotate $time*20 ease(full-circle) infinite forwards,
+					blob-radius $time*20 ease(full-circle) infinite forwards alternate,
+					blob-cloud-parts-x $time*12 linear infinite forwards,
+					blob-cloud-parts-y $time*3 ease(gravity) infinite forwards,
+				;
+		}
+	
+	#toggle:checked ~ #sect & { // unnecessary efx
+
+		&.loading {
+			animation:
+					blob-opa $time*3 ease infinite forwards alternate,
+					blob-rotate $time*20 ease(full-circle) infinite forwards,
+					blob-radius $time*20 ease(full-circle) infinite forwards alternate,
+					blob-cloud-parts-x $time*12 linear infinite forwards,
+					blob-cloud-parts-y $time*3 ease(gravity) infinite forwards,
+				;
+		}
+	}
+	
+	&:after {
+		content: '';
+		display: block;
+		width: 120%;
+		height: 120%;
+		position: absolute;
+		left: -10%;
+		top: -10%;
+		transform-origin: center center;
+		background-image:
+			radial-gradient(
+				circle at 50% 50%,
+				clr(cp, 2),
+				clr(cp, 2) 60%,
+				clr(t) 75%,
+			),
+			radial-gradient(
+				circle at 50% 50%,
+				#ddd,
+				#ddd 60%,
+				clr(t) 75%,
+			),
+			linear-gradient(
+				to bottom,
+				clr(cp, 2) 2.7em,
+				var(--moonlight) 2.8em,
+				// clra(.5, w) 2.8em,
+				clr(cp, 3) 4em,
+			),
+			;
+		background-size: 4ex 4ex, 3ex 3ex, 100% 100%;
+		background-repeat: no-repeat, no-repeat;
+		background-position: 3ex 1ex, 5ex 2ex, 0 0;
+	}
+
+	&:before {
+		content: '';
+		display: block;
+		opacity: .85;
+		width: 110%;
+		height: 50%;
+		left: -5%;
+		top: 0;
+		z-index: 1;
+		position: absolute;
+		background-image: 
+			radial-gradient(
+			ellipse at var(--br1x) var(--br1y),
+			clr(w) 1ex,
+			clr(t) 1ex,
+		),
+			radial-gradient(
+			ellipse at var(--br2x) var(--br2y),
+			clr(w) 1.75ex,
+			clr(t) 1.75ex,
+		),
+			radial-gradient(
+			ellipse at var(--br3x) var(--br3y),
+			clr(w) .8ex,
+			clr(t) .8ex,
+		),
+			;
+		filter: url('#filter-goo3');
+		transform-origin: center bottom;
+	}
+	
+	&.loading {
+		&:after {
+			animation:
+				blob-rotate $time*20 ease(full-circle) infinite reverse,
+				blob-moon $time*50 linear infinite forwards,
+				blob-moonlight $time*25 linear infinite forwards alternate,
+				;
+		}
+		
+		&:before {
+		animation:
+			blob-rotate $time*20 ease(full-circle) infinite reverse,
+			;
+		}
+	}
+}
+
+@keyframes blob-opa {
+	from {
+		opacity: 0.9;
+	}
+	to {
+		opacity: 0.25;
+	}
+}
+
+@keyframes blob-moonlight {
+	@for $ml from 0 through 100 {
+		#{$ml}% {
+			--moonlight: #{mix(clr(cp, 3), clr(cp, 4), ($ml * 1%))};
+
+		}
+
+	}
+}
+
+@keyframes blob-moon {
+	from {
+		background-position: 1ex 1ex, 5ex 2ex, 0 0;
+	}	
+	
+	to {
+		background-position: 8ex 2.5ex, 5ex 2ex, 0 0;
+	}
+}
+
+@keyframes blob-radius {
+	10% {
+		border-radius: 46% 54% 72% 28% / 59% 35% 65% 41%;
+	}
+	20% {
+		border-radius: 64% 36% 66% 34% / 45% 26% 74% 55%;
+	}
+	30% {
+		border-radius: 31% 69% 30% 70% / 58% 64% 36% 42%;
+	}
+	40% {
+		border-radius: 47% 53% 62% 38% / 33% 27% 73% 67%;
+	}
+	50% {
+		border-radius: 42% 58% 29% 71% / 64% 37% 63% 36%;
+	}
+	60% {
+		border-radius: 45% 55% 46% 54% / 66% 38% 62% 34%;
+	}
+	70% {
+		border-radius: 49% 51% 47% 53% / 51% 61% 39% 49%;
+	}
+	80% {
+		border-radius: 36% 64% 56% 44% / 42% 26% 74% 58%;
+	}
+	90% {
+		border-radius: 55% 45% 33% 67% / 53% 25% 74% 47%;
+	}
+	100% {
+		border-radius: 48% 52% 74% 25% / 62% 48% 52% 38%;
+	}
+}
+
+@keyframes blob-rotate {
+	@for $m from 0 through 100 {
+		#{$m}% {
+			transform: rotate(#{0deg + ($m * 36)});
+		}
+
+	}
+}
+
+
+@keyframes blob-cloud-parts-y {
+	25% {
+	--br1y: 87%;
+	--br2y: 85%;
+	--br3y: 86%;
+	}
+	50% {
+	--br1y: 88%;
+	--br2y: 83%;
+	--br3y: 85%;
+	}
+	75% {
+	--br1y: 87%;
+	--br2y: 85%;
+	--br3y: 84%;
+	}
+}
+
+@keyframes blob-cloud-parts-x {
+	@for $l from 0 through 100 {
+		#{$l}% {
+			--dist: #{-100% + $l * 2};
+		}
+
+	}
+}
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+.loader-loader {
+	width: 2em;
+	height: 2em;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+		
+	#toggle:checked ~ #sect & { // unnecessary efx
+		filter: /* url(#filter-goo) */ drop-shadow(.2em .2em .2em clra(.5, s));
+	}
+		
+	&:before {
+		content: '';
+		display: block;
+		width: 100%;
+		height: 2em;
+		color: clr(cp, 4);
+		background-color: currentColor;
+		animation: 
+			loader-loader $time*2 /*ease(downhill) */ linear  infinite forwards,
+			loader-loader-pseudo $time*2 ease(downhill) infinite reverse,
+			;
+	}
+	
+	&.loader-1,
+	&.loader-2,
+	&.loader-3 {
+		height: 5em;
+		
+		&:after {
+			content: '';
+			display: block;
+			width: 100%;
+			height: 0;
+			background-color: clr(cp, 4);
+			animation: loader-loader-stack $time*8 ease(gravity) forwards infinite;
+		}
+	}
+	
+	&.loader-2 {
+		box-shadow: inset 0 -3.5em 0 clr(cp, 2);
+	}
+	
+	&.loader-2 {
+		filter: url(#filter-goo2);
+		
+		&:before {
+			animation-name: 
+			loader-loader2,
+			loader-loader-pseudo;
+		}
+		
+		#toggle:checked ~ #sect & { // unnecessary efx
+			filter: url(#filter-goo2) drop-shadow(.2em .2em .2em clra(.5, s));
+		}
+	}
+	
+	&.loader-3 {
+		filter: url(#filter-goo);
+		
+		&:before {
+			flex: 1 0 2em;
+		}
+		
+		#toggle:checked ~ #sect & { // unnecessary efx
+			filter: url(#filter-goo) drop-shadow(.2em .2em .2em clra(.5, s));
+		}
+	}
+}
+
+@keyframes loader-loader-stack {
+	0%, 20% {
+		height: 0;
+	}
+	25%, 45% {
+		height: 1em;
+	}
+	50%, 70% {
+		height: 2em;
+	}
+	75%, 95% {
+		height: 3em;
+	}
+}
+
+
+@keyframes loader-loader2 {
+	0% {
+		clip-path: polygon(50% 0, 0 0, 30% 0, 30% 0, 70% 0, 70% 0, 100% 0);
+	}
+	20% {
+		clip-path: polygon(50% 30%, 0 0,    30% 0,   30% 0,  70% 0,    70% 0,    100% 0);
+	}
+	55% {
+		clip-path: polygon(50% 100%, 0 70%, 30% 70%, 30% 0%,  70% 0%,    70% 70%,  100% 70%);
+	}
+	
+	75% {
+		clip-path: polygon(50% 100%, 0 100%, 30% 70%, 30% 70%, 70% 70%, 70% 70%, 100% 100%);
+	}
+	85% {
+		clip-path: polygon(50% 100%, 0 100%, 0% 70%, 30% 70%,  68% 70%, 100% 70%, 100% 100%);
+	}
+	100% {
+		clip-path: polygon(50% 100%, 0 100%, 0 100%, 30% 100%, 70% 100%, 100% 100%, 100% 100%);
+	}
+}
+@keyframes loader-loader {
+	0% { // arrow flat top
+		clip-path: polygon(30% 0, 70% 0, 70% 0%, 100% 0%, 70% 0%, 50% 0%, 30% 0%, 0 0%, 30% 0%);
+	}
+	5% { // arrow tip top
+		clip-path: polygon(30% 0, 70% 0, 70% 0%, 100% 0%, 70% 9%, 50% 15%, 30% 9%, 0 0%, 30% 0%);
+	}
+	15% { // arrow tip top
+		clip-path: polygon(30% 0, 70% 0, 70% 0%, 100% 0%, 70% 19%, 50% 30%, 30% 19%, 0 0%, 30% 0%);
+	}
+	50% { // arrow full
+		clip-path: polygon(30% 0%, 70% 0%, 70% 70%, 100% 70%, 70% 89%, 50% 100%, 30% 89%, 0 70%, 30% 70%);
+	}
+	90% { // arrow => box
+		clip-path: polygon(30% 70%, 70% 70%, 70% 70%, 100% 70%, 100% 100%, 50% 100%, 0 100%, 0 70%, 30% 70%);
+	}
+	100% { // flat box
+		clip-path: polygon(30% 100%, 70% 100%, 70% 100%, 100% 100%, 100% 100%, 50% 100%, 0 100%, 0 100%, 30% 100%);
+	}
+}
+@keyframes loader-loader-pseudo {
+	0%, 10% {
+		color: clr(cp, 4);
+	}
+	100% {
+		color: clr(cp, 2);
+	}
+}
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+.loader-◯▢△ {
+	width: 3em;
+	height: 3em;
+	color: clr(cp, 4);
+	animation:
+		◯▢△2 $time*5 linear infinite forwards, 
+		◯▢△-color $time*5 linear infinite forwards, 
+		;
+	
+	&:before {
+		content: '';
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		// box-shadow: inset 0 0 0 1px clr(cp, 4);
+		background-color: currentColor;
+	}
+	
+	&:before {
+		animation: ◯▢△1 $time*5 linear infinite forwards;
+	}
+}
+
+// @keyframes abc {
+// 	0%, 30%, 100% {
+// 		border-radius: 50%;
+// 	}
+// 	33%, 90% {
+// 		border-radius: 0%;
+// 	}
+// 	0%, 57%, 95%, 100% {
+// 		clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+// 	}
+// 	60%, 92% {
+// 		clip-path: polygon(50% 0, 50% 0, 100% 100%, 0 100%);
+// 	}
+// }
+
+@keyframes ◯▢△1 {
+	0%, 23%, 100% {
+		clip-path: circle(50% at 50% 50%);
+	}
+	33%, 90% {
+		clip-path: circle(100% at 50% 50%);
+	}
+}
+
+
+@keyframes ◯▢△2 {
+	0%, 60%, 100% {
+		clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+	}
+	66%, 93% {
+		clip-path: polygon(50% 0, 50% 0, 100% 100%, 0 100%);
+	}
+}
+
+@keyframes ◯▢△-color {
+	0%, 26%, 100% {
+		color: clr(cp,3);
+	}
+	30%, 65% {
+		color: clr(cp, 2);
+	}
+	66%, 97% {
+		color: clr(cp, 4);
+	}
+}
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+.loader-wifi {
+	font-size: 2em;
+	width: 3em;
+	height: 3em;
+	position: relative;
+	border-radius: 50%;
+	overflow: hidden;
+	border: .25ex solid clr(cp, 4);
+	border-color: clr(cp, 4) clr(t) clr(t) clr(t);
+	
+	&:before {
+		content: '';
+		width: 400%;
+		height: 400%;
+		display: block;
+		position: absolute;
+		left: -150%;
+		top: -150%;
+		transform: rotate(45deg) scale(.5);
+		clip-path: polygon(0 0, 50% 0, 50% 50%, 0% 50%);
+		animation: wifi $time linear infinite forwards;
+		background-image: repeating-radial-gradient(
+			circle at 50% 50%, 
+			clr(cp, 3) .5ex,
+			clr(cp, 3) 1ex,
+			clr(t) 1ex,
+			clr(t) 1.5ex,
+			clr(cp, 3) 1.5ex,
+			clr(cp, 3) 2ex,
+			clr(t) 2ex,
+			clr(t) 2.5ex,
+		);
+	}
+	
+	&:after {
+		content: '';
+		width: 80%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    left: 16%;
+    top: -64%;
+		transform: rotate(45deg);
+		border: .25ex solid clr(cp, 4);
+		border-color: clr(t) clr(cp, 4) clr(cp, 4) clr(t);
+	}
+}
+
+@keyframes wifi {
+	0% {
+		background-position: .77ex .77ex; 
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+// -------------------------------------
+// ease():
+// default, in-cubic, out-cubic, in-out-cubic, in-circ, out-circ, in-out-circ, in-expo, out-expo", in-out-expo, in-quad, out-quad, in-out-quad, in-quart, out-quart, in-out-quart, in-quint, out-quint, in-out-quint, in-sine, out-sine, in-out-sine, in-back, out-back, in-out-back, liquid, bounce, in-out-bounce, perpetuum, impetus, full-circle, gravity, overshot, downhill, pendulum, wtf, swing
+// separator
+hr.from-here {
+	content: "--------- don't copy from here --------";
+}
+// ###############################################
+// ########### defaults for layout ###############
+// ###############################################
+// --------- defaults ---------
+* {
+	&:focus {
+		outline: 0;
+	}
+	
+	&, &:before, &:after {
+		box-sizing: border-box;
+	}
+}
+// --------------------
+html {
+	background-color: clr(s);
+	font-size: 10px;
+	
+	body {
+		font-size: $fz;
+		font-family: $f;
+		color: clr(w);
+		// font-size: 1em;
+		overflow-x: hidden;
+		background-color: darken(clr(cp, 1), 2%);
+	}
+	
+	&, body {
+		// position: absolute;
+		// left: 0;
+		// right: 0;
+		// top: 0;
+		// bottom: 0;
+		float: left;
+		width: 100vw;
+		min-height: 100vh;
+		// overflow: auto;
+	}
+}
+
+.hide,
+#toggle,
+#toggleSize,
+#toggleView {
+	display: none;
+}
+
+.flex {
+	display: flex;
+}
+
+#sect	{
+	width: 90vw;
+	margin: 3vh auto 0;
+	
+	#toggleSize:checked {
+		+ #list tbody {
+			font-size: 1.5em;
+		}
+	}
+	
+	#toggleView:checked {
+		~ #list {
+			tr {
+				display: grid;
+				width: 100%;
+				height: 50vh;
+				grid-template-columns: 47.5% 47.5%;
+				grid-template-rows: 70% 25%;
+				grid-gap: 5%;
+				justify-content: stretch;
+				justify-items: stretch;
+				grid-template-areas:
+					"mainDiv mainDiv"
+					"prevDiv nextDiv";
+			}
+			
+			td {
+				margin: 0;
+				> div:not(:nth-child(2)) {
+					font-size: 0.75em;
+				}
+				
+				
+				&:nth-child(1) {
+					grid-area: prevDiv;
+					justify-self: left;
+					height: auto;
+					box-shadow: inset 0 0 0 2px clr(cp,4);
+				}
+				&:nth-child(2) {
+					grid-area: mainDiv;
+					max-width: 100%;
+					width: 100%;
+					height: 100%;
+					overflow: hidden;
+					box-shadow: inset 0 0 0 2px clr(cp,4);							font-size: 2em;
+					
+					h2 {
+						margin-top: -0.125em;
+						background-color: clra(.125, w);
+					}
+				}
+				&:nth-child(3) {
+					grid-area: nextDiv;
+					justify-self: right;
+					height: auto;
+					box-shadow: inset 0 0 0 2px clr(cp,4);
+				}
+				&:nth-child(n+4) {
+					display: none;
+				}
+			}
+		}
+	}
+	
+	h3 {
+		font-weight: 700;
+	}
+	
+	h4 {
+		margin-top: .25em;
+		display: inline-block;
+		vertical-align: middle;
+		
+		&:not(:first-of-type) {
+			margin-left: 1em;
+		}
+		
+		label {
+			display: inline-block;
+			transition: all $time/3;
+			
+			&:hover {
+				color: clr(w);
+			}
+		}
+	}
+	
+	.ckbx {
+		position: relative;
+		display: inline-block;
+		font-size: .5em;
+		padding-left: 1.5em;
+		cursor: pointer;
+		vertical-align: top;
+		line-height: 1.3;
+		
+		.small {
+			font-size: .7em;
+			display: block;
+			line-height: 1.5;
+			text-align: left;
+		}
+		
+		&:before {
+			content: '';
+			position: absolute;
+			display: inline-block;
+			left: 0;
+			top: 0.2em;
+			width: 1em;
+			height: 1em;
+			border: 2px solid clr(cp, 2);
+			border-radius: .2em;
+			margin-right: .5em;
+		}
+		
+		&:after {
+			content: '';
+			display: inline-block;
+			position: absolute;
+			left: .4em;
+			top: 0.7em;
+			width: 0;
+			height: 0;
+			opacity: 0;
+			border: 5px solid clr(cp, 4);
+			border-width: 0 5px 5px 0;
+			transform: rotate(35deg);
+			transition: all $time/3;
+		}
+	}
+	
+	table {
+		width: 100%;
+		margin: 0 auto;
+		margin-top: 8em;
+		
+		caption {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 100;
+			background-color: clr(cp, 1);
+			box-shadow: 0 .5em .5em clr(cp, 1);
+			width: 100vw;
+			font-size: 2em;
+			color: clr(gr);
+			padding-top: .5em;
+			padding-bottom: .5em;
+			border-bottom: 1px solid;
+			margin-bottom: .5em;
+		}
+		
+		tr {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			justify-content: space-evenly;
+			align-items: stretch;
+		}
+		
+		td {
+			// border: 1px solid;
+			// padding: 3em;
+			text-align: center;
+			vertical-align: middle;
+			position: relative;
+			max-width: 25vw;
+			width: 100%;
+			min-width: 12em;
+			min-width: clamp(12em, 50%, 20vmax);
+			text-align: center;
+			height: 20vh;
+			min-height: 10em;
+			margin: .5em;
+			order: 2;
+			border-radius: .5em;
+			transform-origin: center 33%;
+			transition: all $time/3 ease(gravity);
+			background-color: clr(cp, 1);
+			box-shadow: inset 0 0 0 .1em clra(.1, s);
+			overflow: hidden;
+				
+			h2 {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				line-height: 1.5;
+				display: block;
+				font-size: .8em;
+				text-align: center;
+				color: clra(.75, cp, 4);
+				transition: all $time/3 ease(gravity);
+				background-color: clra(.1, s);
+			}
+			
+			&:hover {
+				background-color: clr(cp, 1);
+				box-shadow: .2em .2em .2em rgba(clr(s), .2);
+				transform: scale(1.33);
+				backdrop-filter: blur(3px);
+				z-index: 1000;
+				
+				h2 {
+					font-size: 1em;
+					color: clr(w);
+				}
+			}
+			
+			&.prio {
+				order: 0;
+				// font-size: 2em;
+			}
+			
+			&:not(.prio) {
+				// display: none;
+			}
+			&.hidden {
+				display: none !important;
+			}
+		}
+	}
+}
+
+#toggle:checked ~ #sect .ckbx.one:after,
+#toggleSize:checked ~ #list .ckbx.two:after,
+#toggleView:checked ~ #list .ckbx.three:after{
+	opacity: 1;
+	width: .6em;
+	left: .2em;
+	top: 0em;
+	height: 1.2em;
+}
+
+
+
+
+ @media (min-width: 769px) {
+	 html body {
+		 #sect {
+		 font-size: 1em;
+		 
+			 #list {
+				 td {
+					 max-width: 10em;
+				 }
+			 }
+		 }
+	 }
+  }
+ @media (max-width: 769px) {
+	 html body {
+		 
+		 #sect {
+			 font-size: 1.4em;
+			 width: 100vw;
+
+			 td {
+				 max-width:31vmax;
+			 }
+			 
+				#toggleSize:checked {
+					+ #list tbody {
+						font-size: 1.75em;
+
+					 td {
+						 max-width: 100%;
+					 }
+					}
+			 }
+		 }
+	 }
+}
+ @media (max-width: 360px) {
+	 html body {
+		 #sect {
+			 #list {
+				 font-size: 1.3em;
+
+				 td {
+					 max-width: 100%;
+				 }
+			 }
+		 }
+	 }
+}

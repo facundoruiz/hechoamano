@@ -3,7 +3,7 @@ import "./scss/styles.scss";
 
 // script de de uso frecuente
 import "./vendor/darkModeControl.js";
-import { showTareas ,resizeInstance} from "./productos/productos_home.js";
+import { showTareas ,resizeAllGridItems} from "./productos/productos_home.js";
 import "./vendor/notify.js";
 
 
@@ -14,21 +14,22 @@ document.querySelectorAll('[data-bs-toggle="popover"]').forEach((popover) => {
   new Popover(popover);
 });
 
-showTareas();
+
 
 
 // Evento 'DOMContentLoaded' para asegurar que el DOM ha sido cargado
 document.addEventListener("DOMContentLoaded", () => {
 
+
+  showTareas();
 /*    Loader     Obtén el elemento con la clase 'loading'    */
 var loadingElement = document.querySelector(".loading");
 
   // Espera 300 milisegundos antes de ocultar el elemento
-  setTimeout(function () {
+ setTimeout(function () {
     // Oculta el elemento cambiando el estilo
-    loadingElement.style.display = "none";
-    
-}, 800);
+   loadingElement.style.display = "none";
+    }, 1500);
 
   // Registrar el Service Worker
   if ("serviceWorker" in navigator) {
@@ -62,5 +63,19 @@ var loadingElement = document.querySelector(".loading");
   });
 
 
+
 });
-  
+
+setTimeout(function () {
+  resizeAllGridItems()
+  }, 3000);
+
+
+
+
+     // Herramienta para esperar un tiempo determinado en una función asíncrona 
+     //await sleep(500);
+
+     function sleep(ms=300) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
