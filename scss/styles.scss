@@ -21,7 +21,7 @@
  @import "bootstrap/scss/bootstrap";
 
  // Functions first
-@import "bootstrap/scss/functions";
+//@import "bootstrap/scss/functions";
 
 // Variable overrides second
 $primary: #900;
@@ -33,7 +33,7 @@ $prefix: "mo-";
 // Required Bootstrap imports
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/variables-dark";
-@import "bootstrap/scss/maps";
+//@import "bootstrap/scss/maps";
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/root";
 
@@ -237,9 +237,7 @@ section .container {
 }
 
 
-/*
-
-loder*/
+/* loder*/
 .loading {
   position: fixed;
   left: 0px;
@@ -373,8 +371,7 @@ SOCIAL
 
 .moon-svg,
 .sun-svg {
-  width: 16px;
-  height: 16px;
+ 
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -646,7 +643,7 @@ SOCIAL
   width: 100%;
   margin: 5px 0px;
   padding: 0px 0px;
-  position: absolute;
+ background-color: #000;
   min-height: 40px;
   pointer-events: none;
   -moz-transition: background-color 0.35s ease-in-out;
@@ -659,24 +656,18 @@ SOCIAL
         color: #5e0e0e;
       }
 }
-@media (min-width: 992px) {
-  .page-footer {
-   
-    background-color: transparent;
-    margin: 5px 0px;
-  }
-}
+
 .page-footer .title {
   font-size: 21px;
   margin-bottom: 20px;
   margin-top: 0;
 }
 .page-footer a {
-  color: rgba(75, 74, 74, 0.8);
+  color: rgba(255, 255, 255, 0.8);
   pointer-events: auto;
 }
 .page-footer a:hover {
-  color: rgba(163, 124, 124, 0.7);
+  color: rgba(243, 147, 147, 0.7);
 }
 
 .copyright {
@@ -689,6 +680,10 @@ SOCIAL
 .footer-block {
   margin-bottom: 20px;
 }
+
+/** 
+TARJETAS
+*/
 
 .hcf-isotope-item {
   background-color: #eee;
@@ -711,4 +706,153 @@ SOCIAL
   grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
   grid-auto-rows: 20px;
 }
+.card-code {
+  padding-left: 10px;
+  font-size: 1rem;
+  width: 50%;
+  background-color: cornflowerblue;
+}
 
+.card-category {
+  width: 50%;
+  background-color: cornflowerblue;
+}
+/**
+
+loodin
+*/
+
+
+[class*=loader] {
+  position: relative;
+  top: 40%;
+  display: inline-block;
+  margin: 0 auto;
+  cursor: wait;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.loader-butterfly {
+  font-size: 2em;
+  width: 2em;
+  height: 2em;
+  transform: rotateZ(-13deg);
+  -webkit-animation: insect-fly 0.3333333333s infinite alternate cubic-bezier(.45,-0.43,.63,1.94);
+          animation: insect-fly 0.3333333333s infinite alternate cubic-bezier(.45,-0.43,.63,1.94);
+}
+.loader-butterfly:before, .loader-butterfly:after {
+  content: "";
+  position: absolute;
+  width: 1em;
+  height: 1.5em;
+  border: 1px solid #0e5f76;
+  background-color: rgba(8, 61, 86, 0.5);
+  -webkit-animation: wings 0.3333333333s infinite cubic-bezier(0.6, 0, 0.4, 1) alternate;
+          animation: wings 0.3333333333s infinite cubic-bezier(0.6, 0, 0.4, 1) alternate;
+}
+.loader-butterfly:before {
+  left: 0;
+  border-radius: 40% 20% 50% 50%;
+  transform-origin: right center;
+}
+.loader-butterfly:after {
+  right: 0;
+  border-radius: 20% 40% 50% 50%;
+  transform-origin: left center;
+  animation-direction: alternate-reverse;
+}
+@-webkit-keyframes wings {
+  from {
+    transform: rotateX(60deg) rotateY(-60deg);
+  }
+  to {
+    transform: rotateX(60deg) rotateY(60deg);
+  }
+}
+@keyframes wings {
+  from {
+    transform: rotateX(60deg) rotateY(-60deg);
+  }
+  to {
+    transform: rotateX(60deg) rotateY(60deg);
+  }
+}
+@-webkit-keyframes insect-fly {
+  from {
+    margin-top: -0.3em;
+  }
+  to {
+    margin-top: 0.3em;
+  }
+}
+@keyframes insect-fly {
+  from {
+    margin-top: -0.3em;
+  }
+  to {
+    margin-top: 0.3em;
+  }
+}
+
+
+.loader-wobble {
+  font-size: 0.8em;
+  top: 50%;
+  display: inline-block;
+  width: 5em;
+  height: 1em;
+  line-height: 1.3;
+  position: relative;
+  color: #0e5f76;
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-bottom: 0.1em solid;
+  margin-left: -5em;
+  transform: translateX(50%);
+  -webkit-animation: loadingText 1s infinite cubic-bezier(1, -2.3, 1, 2.5) alternate;
+          animation: loadingText 1s infinite cubic-bezier(1, -2.3, 1, 2.5) alternate;
+}
+
+
+
+
+@-webkit-keyframes loadingText {
+  0% {
+    color: #0e5f76;
+    width: 0em;
+  }
+  100% {
+    color: #081e3f;
+    width: 4em;
+  }
+}
+@keyframes loadingText {
+  0% {
+    color: #0e5f76;
+    width: 0em;
+  }
+  100% {
+    color: #081e3f;
+    width: 4em;
+  }
+}
+@-webkit-keyframes loadingTextMove {
+  0% {
+    text-indent: 1em;
+  }
+  100% {
+    text-indent: -1em;
+  }
+}
+@keyframes loadingTextMove {
+  0% {
+    text-indent: 1em;
+  }
+  100% {
+    text-indent: -1em;
+  }
+}
