@@ -22,9 +22,19 @@
 <body class="bg-body-tertiary">
 
    <!-- Start Loader -->
-   <div class='loading'>
+   <div class='loading' style="position: fixed;
+   left: 0px;
+   top: 0px;
+   right: 0px;
+   bottom: 0px;
+   z-index: 9999;
+   display: none;
+   width: 100%;
+   height: 100%;
+   background-color: #000;
+   display: block;">
     <div class='loader'>
-      <img height='80' src='images/loader.svg' width='80'>
+      <img src="<%= require('./assets/loader.svg') %>" alt="Cargando..." width="50%">  
     </div>
   </div>
   <!-- End Loader -->

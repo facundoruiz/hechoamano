@@ -1,7 +1,7 @@
 import {
   onGetTasks
 } from "./productos_crud.js"
-import imagesLoaded from "imagesloaded";
+
 
 export const showTareas = () => {
 

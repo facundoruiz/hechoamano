@@ -23,15 +23,14 @@ const saveUserToFirestore = async (user) => {
     color:getRandomColorHex() ,
     uid: user.uid,
     createdAt: serverTimestamp(),
-  };
+    rol : 'user'
+    };
 
   // Guarda los datos del usuario en Firestore
   await setDoc(userRef, userData);
  
 
 };
-
-
 
 
 const googleButton = document.querySelector("#googleLogin");
@@ -65,3 +64,25 @@ const getRandomColorHex = ()=> {
   // Asegura que el color siempre tenga 6 dígitos agregando ceros a la izquierda si es necesario
   return "#" + color.padStart(6, "0");
 }
+
+async function getRol(uid) {
+  const docuRef = doc(db, `usuarios/${uid}`);
+  const docuCifrada = await getDoc(docuRef);
+  const infoFinal = docuCifrada.data().rol;
+  return infoFinal;
+}
+
+ export const setUserRol= (usuario) => {
+
+  getRol(usuario.uid).then((rol) => {
+    const userData = {
+      uid: usuario.uid,
+      email: usuario.email,
+      name: usuario.name,
+      rol: rol,
+    };
+   return userData;
+   
+  });
+}
+
