@@ -6,22 +6,15 @@ import "./vendor/darkModeControl.js";
 import { showTareas ,resizeAllGridItems} from "./productos/productos_home.js";
 import "./vendor/notify.js";
 
-
-
-
 // Create an example popover
 document.querySelectorAll('[data-bs-toggle="popover"]').forEach((popover) => {
   new Popover(popover);
 });
 
-
-
-
 // Evento 'DOMContentLoaded' para asegurar que el DOM ha sido cargado
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
-
-  showTareas();
+   showTareas();
 /*    Loader     Obtén el elemento con la clase 'loading'    */
 var loadingElement = document.querySelector(".loading");
 
