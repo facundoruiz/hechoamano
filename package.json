@@ -22,6 +22,8 @@
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.11.2",
     "chokidar": "^3.5.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
     "css-minimizer-webpack-plugin": "^5.0.1",
     "dotenv": "^16.1.4",
     "firebase": "^9.21.0",
@@ -30,6 +32,7 @@
     "terser-webpack-plugin": "^5.3.9",
     "toastify-js": "^1.12.0",
     "url-loader": "^4.1.1",
+    "webpack-merge": "^5.10.0",
     "workbox-webpack-plugin": "^7.0.0"
   },
   "devDependencies": {

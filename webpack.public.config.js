@@ -1,7 +1,13 @@
+'use strict'
+
 const path = require('path');
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //extrae css
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin"); //minify css
+const TerserPlugin = require("terser-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const webpack = require('webpack')
 const dotenv = require('dotenv')
@@ -23,16 +29,21 @@ module.exports = {
     path: path.resolve(__dirname, 'docs'),
     filename: 'assets/js/[name].js',
   },
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  },
   module: {
-    rules: [{
-        mimetype: 'image/svg+xml',
-        scheme: 'data',
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/svg/[hash].svg'
+    rules: [
+      { //css para extraer
+      test: /\.(svg)$/i,
+      type: 'asset/resource',
+     
+      generator: {
+        filename: 'asset/svg/[hash][ext]'
 
-        }
-      },
+      }
+    },
       
       { //css para extraer
         test: /\.(png|jpg|jpeg|svg|gif)$/i,
@@ -84,9 +95,18 @@ module.exports = {
       }
    ],
   },
+  optimization: {
+    minimize: true,
+    minimizer: [
+     new CssMinimizerPlugin(),
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
+      }),
+    ],
+  },
   plugins: [
     new webpack.DefinePlugin(envKeys),
-
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'assets/css/[name].min.css'
     }),
@@ -116,6 +136,20 @@ module.exports = {
       filename: 'offline.html',
       template: './src/offline.html'
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "./src/manifest.webmanifest",
+          to: "manifest.json",
+         
+        },
+        {
+          from: "./src/assets/icon",
+          to: "assets/icon",
+         
+        }
+      ],
+    })
   ],
   resolve: {
     extensions: ['.js']
