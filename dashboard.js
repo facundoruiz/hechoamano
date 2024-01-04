@@ -2,13 +2,14 @@
 import './scss/styles.scss';
 
 import { auth } from "./vendor/firebase.js";
-import { onAuthStateChanged } from "firebase/auth";
-import { loginCheck } from "./vendor/check.js";
+import { onAuthStateChanged } from "firebase/auth"; //si existe usuario se puede 
+import { loginCheck } from "./vendor/check.js"; // parate visual
 
 // script de de uso frecuente
 
 import './vendor/notify.js'
-import './auth/logout.js'
+import './auth/logout.js' //para desloguear
+import './auth/auth.js' // para logear
 import './vendor/menu.js'
 import { showTareas } from './productos/productos.js'
 

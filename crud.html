@@ -186,11 +186,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form id="taks-form" class="needs-validation"  enctype="multipart/form-data">
-          <div class="modal-body">
+          <div class="modal-body bg-secondary-subtle">
             <div class="row ">
               <div class="col-sm-4">
                 <label for="codigo" class="form-label">codigo</label>
-                <input type="text" class="form-control" id="codigo" placeholder="ingreso codigo" required>
+                <input type="text" class="form-control" name="codigo" id="codigo" placeholder="ingreso codigo" required>
                 <small class="text-muted">codigo de la pieza</small>
                 <div class="invalid-feedback">
                   codigo Obligatorio.
@@ -199,7 +199,7 @@
 
               <div class="col-sm-6">
                 <label for="nombre" class="form-label">nombre</label>
-                <input type="text" class="form-control" id="nombre" placeholder="ingreso nombre" required>
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="ingreso nombre" required>
                 <small class="text-muted">nombre de la pieza</small>
                 <div class="invalid-feedback">
                   nombre Obligatorio.
@@ -207,27 +207,27 @@
               </div>
               <div class="mb-3">
                 <label for="descripcion" class="form-label">descripcion</label>
-                <textarea class="form-control" id="descripcion" rows="3"></textarea>
+                <textarea class="form-control" name="descripcion" id="descripcion" rows="3"></textarea>
                 <small class="text-muted">Breve descripción de lo que se hizo o materiales</small>
               </div>
               <div class="col-sm-4">
                 <label for="precio" class="form-label">precio</label>
-                <input type="text" class="form-control" id="precio" placeholder="$" required>
+                <input type="text" class="form-control" name="precio" id="precio" placeholder="$" required>
                 <small class="text-muted">Precio de la pieza</small>
 
               </div>
               <div class="col-sm-4">
-                <label for="formFile" class="form-label">Default file input example</label>
-                <input class="form-control" type="file" id="formFile">
+                <label for="formFile" class="form-label">Imagen Principal</label>
+                <input class="form-control" type="file" name="formFile" id="formFile"  required>
               </div>
-              <div class="col-sm-4">
+              <!-- <div class="col-sm-4">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="estado">
+                  <input class="form-check-input" type="checkbox" value="1" name="estado" id="estado" checked>
                   <label class="form-check-label" for="estado">
                     Habilitado
                   </label>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="modal-footer">
@@ -239,7 +239,18 @@
     </div>
   </div>
   <!-- Fin Modal -->
-
+  <template id="productrow">
+    <tr>
+      <td >#</td>
+  
+      <td ><img src="" alt="" class="productrow-image"></td>
+      
+      <td >-</td>
+  
+      <td >-</td>
+      <td ><button class="btn btn-secondary btn-edit" > 🖉 Edit </button></td>
+    </tr>
+  </template>
 </body>
 
 </html>
