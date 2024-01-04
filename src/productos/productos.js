@@ -1,76 +1,80 @@
 import {
   onGetTasks,
-  saveTask
+  saveTask,getTask
 } from "./productos_crud.js"
 import {
   showMessage
 } from "../vendor/showMessage.js";
 
+
+const productoList = document.getElementById("tablaProducto");
 export const showTareas = () => {
 
-  const productoList = document.getElementById("tablaProducto");
+ 
   // Obtener la referencia del elemento TBODY de la tabla.
-var tBody = productoList.getElementsByTagName("tbody")[0];
+ let tBody = productoList.getElementsByTagName("tbody")[0];
+  let elemento
+
+  const fragment = document.createDocumentFragment();
+  const template = document.querySelector("#productrow").content;
+
 
   onGetTasks((querySnapshot) => {
-    
+    elemento =0;
+    tBody.innerHTML=""
+
     querySnapshot.forEach((task) => {
- // Convertir el campo createdAt a una fecha legible
- const createdAt = getTimeAgo(task.createdAt);
+     
+      elemento++;
+template.querySelectorAll('td')[0].textContent = elemento;
+//https://sabe.io/blog/javascript-change-image-src
+template.querySelector(".productrow-image").src = task.src_img ? task.src_img : '';
+template.querySelector(".productrow-image").alt = task.nombre ? task.nombre : '';
+template.querySelector(".productrow-image").title = task.nombre ? task.nombre : '';
+template.querySelector(".productrow-image").width = '80';
 
- // Añadir fila.
- var row = tBody.insertRow(-1);
+template.querySelectorAll('td')[2].textContent = task.nombre
+template.querySelectorAll('td')[3].textContent = task.precio
+template.querySelector(".btn-edit").dataset.id = task.id
+    
 
- // Celdas
- var cell1 = row.insertCell(0); // Primera celda para la imagen
- var img = document.createElement("img");
- img.src = task.src_img ? task.src_img : '';
- img.alt = task.nombre ? task.nombre : '';
- img.width = '80';
- cell1.appendChild(img);
 
- var cell2 = row.insertCell(1); // Segunda celda para el nombre
- cell2.appendChild(document.createTextNode(task.nombre));
+    const clone = template.cloneNode(true);
+     // const clone = document.importNode(template, true);
+    fragment.appendChild(clone);
 
- var cell3 = row.insertCell(2); // Tercera celda para el precio
- cell3.appendChild(document.createTextNode(task.precio));
-
- var cell4 = row.insertCell(3); // Cuarta celda para la fecha
- cell4.appendChild(document.createTextNode(createdAt));
-   
     });
-   
+    tBody.appendChild(fragment)
+    wakeBtn() //agrego aqui para que cada vez q se liste despierte a los btn edit
   });
 
 
-  
+
 }
 
 const taskForm = document.getElementById("taks-form");
 
-if(taskForm){
+if (taskForm) {
 
   const btnAddTak = document.querySelector("#save-tak");
-  
-// Función para cuando hagan click en boton y  autenticar con Google y guardar el usuario en Firestore
-//btnAddTak.addEventListener("click", async (e) => {
-  taskForm.addEventListener("submit", async (e) => {
-    
-    e.preventDefault();
-    
-    console.log(taskForm["formFile"].files[0]);
 
-  if (saveTask( taskForm,file)) {
-    // show  message
-    taskForm.reset();
-    taskForm['nombre'].focus();
-    showMessage("pieza Guardada!");
-    //window.location.href = "./";
-  } else {
-    showMessage(" Errror", error);
-  }
-  
-})
+  // Función para cuando hagan click en boton y  autenticar con Google y guardar el usuario en Firestore
+  //btnAddTak.addEventListener("click", async (e) => {
+  taskForm.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    if (await saveTask(taskForm)) {
+      // show  message
+      taskForm.reset();
+      taskForm['codigo'].focus();
+      showMessage("pieza Guardada!");
+      //window.location.href = "./";
+    } else {
+      showMessage(" Errror !!", 'error');
+    }
+
+  })
 
 }
 
@@ -107,3 +111,23 @@ const getTimeAgo = timestamp => {
   const { value, unit } = getUnitAndValueDate(secondsElapsed);
   return rtf.format(value, unit);
 };
+
+const wakeBtn = () => {
+  
+/**
+ * cuando hagan click en editar
+ */
+const btnsEdit = productoList.querySelectorAll(".btn-edit");
+btnsEdit.forEach((btn) => {
+  btn.addEventListener("click", async (e) => {
+    console.log('click');
+    try {
+      const doc = await getTask(e.target.dataset.id);
+      const task = doc.data();
+     console.log(task);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+});
+}
