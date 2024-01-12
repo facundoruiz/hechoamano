@@ -61,7 +61,7 @@ var loadingElement = document.querySelector(".loading");
 
 setTimeout(function () {
   resizeAllGridItems()
-  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle-tool="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))
   }, 3000);
 
@@ -78,5 +78,5 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(
 
     // Create an example popover
 
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle-tool="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))

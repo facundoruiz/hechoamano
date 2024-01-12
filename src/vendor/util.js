@@ -34,25 +34,28 @@ export const filterFunction = (p_elementos,p_input) =>{
   div = document.getElementById(p_elementos);
 
   // Obtener todas las secciones del acordeón
-  const secciones = div.querySelectorAll('.accordion-item');
+  const secciones = div.querySelectorAll('.hcf-isotope-item');
 
   secciones.forEach(seccion => {
    
     // Obtener los enlaces dentro de la sección
-    txtList = seccion.querySelectorAll("a");
-
+    txtList = seccion.querySelectorAll("h3");
+    
     // Variable para verificar si al menos un enlace coincide
     let algunEnlaceCoincidente = false;
 
     // Recorrer cada enlace en la sección
     txtList.forEach(enlace => {
-      txt = enlace.textContent || enlace.innerText;
+      txt = enlace.textContent || enlace.innerText || enlace.innerHTML;
+   
       const txtWords = quitarDiacriticos(txt.toLowerCase()).split(' ');
       const allFilterWordsPresent = filterWords.every(word => txtWords.includes(word));
-
+      console.log(filterWords,txt);
       if (allFilterWordsPresent) {
         enlace.style.display = "block";
+        seccion.style.display = 'block';
         algunEnlaceCoincidente = true;
+        
       } else {
         enlace.style.display = "none";
       }
@@ -61,15 +64,7 @@ export const filterFunction = (p_elementos,p_input) =>{
     // Mostrar u ocultar la sección basándose en si algún enlace coincide
     if (algunEnlaceCoincidente) {
       seccion.style.display = 'block';
-      
-      // Expandir la sección si no está ya expandida
-      if (!seccion.classList.contains('show')) {
-        
-        const button = seccion.querySelector('button');
-        if (button) {
-          button.click(); // Simular un clic en el botón para expandir la sección
-        }
-      }
+    
     } else {
       seccion.style.display = 'none';
     }
@@ -78,4 +73,18 @@ export const filterFunction = (p_elementos,p_input) =>{
 /** tome tu otro nombre de acentos */
 function quitarDiacriticos(texto) {
   return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+export const share = () => {
+  var text = 'Muy Pronto! un nuevo lugar de encuentro';
+  if ('share' in navigator) {
+    navigator.share({
+      title: document.title,
+      text: text,
+      url: location.href,
+    })
+  } else {
+    // Here we use the WhatsApp API as fallback; remember to encode your text for URI
+    location.href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(text + ' - ') + location.href
+  }
 }

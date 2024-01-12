@@ -62,12 +62,14 @@
       
           <!-- Social navigation -->
           <div class='social-nav'>
-           
-           <ul>
+            
+         <ul>
             <li class='animate__animated animate__onstart'>
-              <a data-placement='bottom' data-bs-toggle="tooltip" href='#' data-bs-title="Lista de Deseos" title='Lista de Deseos'>
-                <i class="bi bi-balloon-heart"></i>
+           
+              <a class='btn  btn-outline-secondary ' id="btnShowDeseos"  data-bs-toggle="collapse" href="#DesossCollapse" role="button" aria-expanded="false" aria-controls="DesossCollapse"  data-bs-toggle-tool='tooltip' data-bs-title="Lista de Deseos" title='Lista de Deseos'>
+                <i class="bi bi-heart" id="corazon"></i>
               </a>
+           
             </li>
             <!--    <li>
                 <label for="night-light-checkbox" class="night-light-label">
@@ -86,21 +88,23 @@
                 </label>
               </li>
               <li class='animate__animated animate__onstart' href='#'>
-                <a data-placement='bottom' data-bs-toggle='tooltip' href='#' data-bs-title="" title='Follow us on Facebook'>
+                <a data-placement='bottom' data-bs-toggle-tool='tooltip' href='#' data-bs-title="" title='Follow us on Facebook'>
                   <i class='bi bi-facebook'></i>
                 </a>
               </li>
               <li class='animate__animated animate__onstart' href='#'>
-                <a data-placement='bottom' data-bs-toggle='tooltip' href='#' data-bs-title="" title='Follow us on Twitter'>
+                <a data-placement='bottom' data-bs-toggle-tool='tooltip' href='#' data-bs-title="" title='Follow us on Twitter'>
                   <i class='bi bi-twitter'></i>
                 </a>
               </li>
               <li class='animate__animated animate__onstart' href='#'>
-                <a data-placement='bottom' data-bs-toggle='tooltip' href='#' data-bs-title="" title='Follow us on Instagram'>
+                <a data-placement='bottom' data-bs-toggle-tool='tooltip' href='#' data-bs-title="" title='Follow us on Instagram'>
                   <i class='bi bi-instagram'></i>
                 </a>
               </li>-->
+             
             </ul>
+            
           </div>
           <!-- End Social navigation -->
           
@@ -108,8 +112,13 @@
       </div>
     </header>
     <!-- End Header -->
-    
-      
+    <div class="collapse container text-center" id="DesossCollapse">
+      <hr>
+      <h3>Listas de Deseos</h3>
+      <div class="row" id="DesossContainer" >Vacia</div>  
+    </div>
+
+
       <!-- Start Welcome -->
       <section class='welcome section-content section'>
         <div class='overlay'></div>
@@ -119,7 +128,9 @@
               <h1 class='section-title'>
                 Cerámica
               </h1>
-            
+              <form class="d-flex" role="search">
+                <input class="form-control me-2 clear-data" id="buscaInputBtn" autocomplete="off" type="search" placeholder="Buscar codigo o nombre" aria-label="buscar">
+              </form>
            
             </div>
           </div>
@@ -129,10 +140,8 @@
 
       
     <section class="container-fluid">
-
-      <div class="hcf-isotope-grid"></div>
-   
-  </section>
+      <div class="hcf-isotope-grid" id="ListadoProductos"></div>
+     </section>
 
 
 
@@ -173,13 +182,13 @@
         <div class='social-nav'>
         <ul>
           <li class='animate__animated animate__onstart'>
-            <button class="btn btn-info text-white" data-bs-placement='bottom' data-bs-toggle='tooltip'
-              data-bs-title='Compartir' title='Compartir'>
+            <button class="btn-share btn btn-info text-white" data-bs-placement='bottom' data-bs-toggle-tool='tooltip'
+              data-bs-title='Compartir' title='Compartir' onclick="btnShare(this)" data-info='${taks.id}' data-codigo='${taks.codigo}' data-nombre='${taks.nombre}'>
               <i class='bi bi-share'></i>
             </button>
           </li>
           <li class='animate__animated animate__onstart' >
-            <button class="btn-deseo btn btn-danger text-white " data-bs-placement='bottom' data-bs-toggle='tooltip' 
+            <button class="btn-deseo btn btn-danger text-white " data-bs-placement='bottom' data-bs-toggle-tool='tooltip' 
               data-bs-title="Agregar a lista de deseos" title='Agregar a lista de deseos' data-info='${taks.id}' onclick="btnDeseo(this)">
               <i class="bi bi-heart"></i>
             </button>
