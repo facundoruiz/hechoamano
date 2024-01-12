@@ -119,10 +119,10 @@ const wakeBtn = () => {
  */
 const btnsEdit = productoList.querySelectorAll(".btn-edit");
 btnsEdit.forEach((btn) => {
-  btn.addEventListener("click", async (e) => {
-    console.log('click');
+  btn.addEventListener("click", async (event) => {
+    event.preventDefault();
     try {
-      const doc = await getTask(e.target.dataset.id);
+      const doc = await getTask(event.target.dataset.id);
       const task = doc.data();
      console.log(task);
     } catch (error) {

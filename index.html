@@ -63,8 +63,13 @@
           <!-- Social navigation -->
           <div class='social-nav'>
            
-            <ul>
-              <li>
+           <ul>
+            <li class='animate__animated animate__onstart'>
+              <a data-placement='bottom' data-bs-toggle="tooltip" href='#' data-bs-title="Lista de Deseos" title='Lista de Deseos'>
+                <i class="bi bi-balloon-heart"></i>
+              </a>
+            </li>
+            <!--    <li>
                 <label for="night-light-checkbox" class="night-light-label">
                   <input type="checkbox" id="night-light-checkbox" />
                   <span class="night-light-ball"></span>
@@ -81,20 +86,20 @@
                 </label>
               </li>
               <li class='animate__animated animate__onstart' href='#'>
-                <a data-placement='bottom' data-toggle='tooltip' href='#' title='Follow us on Facebook'>
+                <a data-placement='bottom' data-bs-toggle='tooltip' href='#' data-bs-title="" title='Follow us on Facebook'>
                   <i class='bi bi-facebook'></i>
                 </a>
               </li>
               <li class='animate__animated animate__onstart' href='#'>
-                <a data-placement='bottom' data-toggle='tooltip' href='#' title='Follow us on Twitter'>
+                <a data-placement='bottom' data-bs-toggle='tooltip' href='#' data-bs-title="" title='Follow us on Twitter'>
                   <i class='bi bi-twitter'></i>
                 </a>
               </li>
               <li class='animate__animated animate__onstart' href='#'>
-                <a data-placement='bottom' data-toggle='tooltip' href='#' title='Follow us on Instagram'>
+                <a data-placement='bottom' data-bs-toggle='tooltip' href='#' data-bs-title="" title='Follow us on Instagram'>
                   <i class='bi bi-instagram'></i>
                 </a>
-              </li>
+              </li>-->
             </ul>
           </div>
           <!-- End Social navigation -->
@@ -120,20 +125,19 @@
           </div>
         </div>
       </section>
-      <!-- End Welcome
-  <section class="container">
- 
-    <div class="my-3 p-3 bg-body rounded shadow-sm ">
-      <h5 class="pb-2 mb-0 ">Novedades Recientes</h5>
+      <!-- End Welcome-->
+
       
-        <div class="taks-recent row" data-masonry='{"percentPosition": true }'></div>
-      
-    </div>   </section>-->
     <section class="container-fluid">
 
       <div class="hcf-isotope-grid"></div>
    
   </section>
+
+
+
+
+
 
 
  <!-- Start Footer -->
@@ -153,5 +157,38 @@
 
  
 </body>
+<template id="templateProduct">
+  <article class="hcf-isotope-item">
+    <div class="hcf-masonry-card ">
+      <div class="card-img ">
+        <a class="rounded rounded-4" href="#!">
+          <img class="produto-img" alt="${taks.nombre}" loading="lazy" src="${taks.src_img}" >
+        </a>
+      </div>
+      <div class="card-category text-white text-center float-end">$ ${taks.precio}</div>
+      <div class="card-code float-start text-white"> #${taks.codigo}</div>
+      <div class="card-overlay d-flex flex-column justify-content-center bg-dark p-4" style="--bs-bg-opacity: .5;">
+        <h3 class="card-title text-white text-center mb-1">${taks.nombre} </h3>
+        <p class="card-text text-white text-center">${taks.descripcion}</p>
+        <div class='social-nav'>
+        <ul>
+          <li class='animate__animated animate__onstart'>
+            <button class="btn btn-info text-white" data-bs-placement='bottom' data-bs-toggle='tooltip'
+              data-bs-title='Compartir' title='Compartir'>
+              <i class='bi bi-share'></i>
+            </button>
+          </li>
+          <li class='animate__animated animate__onstart' >
+            <button class="btn-deseo btn btn-danger text-white " data-bs-placement='bottom' data-bs-toggle='tooltip' 
+              data-bs-title="Agregar a lista de deseos" title='Agregar a lista de deseos' data-info='${taks.id}' onclick="btnDeseo(this)">
+              <i class="bi bi-heart"></i>
+            </button>
+          </li>
+        </ul>
+      </div>   
+      </div>
+    </div>
+  </article> 
+</template>
 
 </html>
