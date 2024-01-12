@@ -3,13 +3,12 @@ import "./scss/styles.scss";
 
 // script de de uso frecuente
 import "./vendor/darkModeControl.js";
-import { showTareas ,resizeAllGridItems} from "./productos/productos_home.js";
+import { showTareas ,resizeAllGridItems,wakeBtn} from "./productos/productos_home.js";
 import "./vendor/notify.js";
+import {
+  Tooltip
+} from 'bootstrap';
 
-// Create an example popover
-document.querySelectorAll('[data-bs-toggle="popover"]').forEach((popover) => {
-  new Popover(popover);
-});
 
 // Evento 'DOMContentLoaded' para asegurar que el DOM ha sido cargado
 document.addEventListener("DOMContentLoaded", async () => {
@@ -22,7 +21,7 @@ var loadingElement = document.querySelector(".loading");
  setTimeout(function () {
     // Oculta el elemento cambiando el estilo
    loadingElement.style.display = "none";
-    }, 1500);
+    }, 2500);
 
   // Registrar el Service Worker
   if ("serviceWorker" in navigator) {
@@ -56,11 +55,14 @@ var loadingElement = document.querySelector(".loading");
   });
 
 
-
+ 
+  //wakeBtn() //tardaen dibujar tarda en despertar
 });
 
 setTimeout(function () {
   resizeAllGridItems()
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))
   }, 3000);
 
 
@@ -72,3 +74,9 @@ setTimeout(function () {
      function sleep(ms=300) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
+
+
+    // Create an example popover
+
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))

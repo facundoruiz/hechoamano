@@ -4,6 +4,7 @@
 import {
   Popover
 } from 'bootstrap';
+
 import './color-modes'
 
 (() => {
