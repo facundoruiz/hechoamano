@@ -1,3 +1,5 @@
+import {scrollToTop,share} from './util.js'
+
 // Función para agregar una URL fav
 export const addDesos =(elem) =>{
   
@@ -7,40 +9,53 @@ export const addDesos =(elem) =>{
      Desoss[elem.id]= {...elem} 
     localStorage.setItem('Desoss', JSON.stringify(Desoss));
    // Actualizar la lista de favoritos en tu interfaz de usuario
-   //showDeseos() 
+   showDeseos() 
   }
  
     
 function showDeseos() {
-    const DesossContainer = document.getElementById('DesossContainer');
-    const Desoss = JSON.parse(localStorage.getItem('Desoss')) || {};
-  
-    DesossContainer.innerHTML = '';
-  
-    Desoss.forEach( (metadata) => {
-    let  li = document.createElement("li");
-      li.setAttribute("class","list-group-item");
+    const DesossContainer = document.getElementById('DesossContainer'); // un UL
+    const Desoss = JSON.parse(localStorage.getItem('Desoss')) || {}; //saco del localstaore
+    const corazon = document.getElementById('corazon');
+    if (Object.keys(Desoss).length === 0){
 
-      // Crear elementos HTML para mostrar el título, favicon y URL
-      const titleElement = document.createElement('div');
-      titleElement.textContent = metadata.titulo;
-  
-      /*const faviconElement = document.createElement('img');
-      faviconElement.src = metadata.favicon;
-      faviconElement.alt = 'Favicon';
-  */
-      const urlElement = document.createElement('a');
-      urlElement.href = metadata.url;
-      urlElement.target = '_blank';
-      urlElement.textContent = metadata.url;
-  
-      // Agregar los elementos al contenedor
-      li.appendChild(titleElement);
+      corazon.setAttribute("class","bi bi-heart");
+    }else{
+      corazon.setAttribute("class","bi bi-heart-fill text-danger");
+      DesossContainer.innerHTML = '';
+
+      Object.entries(Desoss).forEach(([key, metadata]) => {
+     
+        let  card = document.createElement("div");
+          card.setAttribute("class","card col-md-2 col-sm-3 col-4");
+          let body =  document.createElement("div");
+          body.setAttribute("class","card-body");
+          // Crear elementos HTML para mostrar el título, favicon y URL
+          const titleElement = document.createElement('div');
+           titleElement.setAttribute("class","card-title");
+          titleElement.textContent = '#'+metadata.codigo+' - '+metadata.nombre;
       
-      li.appendChild(urlElement);
-      DesossContainer.appendChild(li);
-      //DesossContainer.appendChild(document.createElement('br'));
-    });
+          const faviconElement = document.createElement('img');
+          faviconElement.src = metadata.src_img;
+          faviconElement.alt =  metadata.descripcion;
+          faviconElement.setAttribute("class","card-img-top rounded img-thumbnail");
+      
+          // Agregar los elementos al contenedor
+          card.appendChild(faviconElement);
+          body.appendChild(titleElement);
+          card.appendChild(body);
+          DesossContainer.appendChild(card);
+          
+        });
+    }
+
+   
   }
-  // Mostrar las URLs favoritas cuando la página se carga
-  
+
+
+  document.getElementById('btnShowDeseos').addEventListener('click', () => {
+    scrollToTop();
+  });
+
+  //ejecuta
+  showDeseos() 
