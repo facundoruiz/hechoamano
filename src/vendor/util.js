@@ -50,9 +50,9 @@ export const filterFunction = (p_elementos,p_input) =>{
    
       const txtWords = quitarDiacriticos(txt.toLowerCase()).split(' ');
       const allFilterWordsPresent = filterWords.every(word => txtWords.includes(word));
-      console.log(filterWords,txt);
+      
       if (allFilterWordsPresent) {
-        enlace.style.display = "block";
+        //enlace.style.display = "block";
         seccion.style.display = 'block';
         algunEnlaceCoincidente = true;
         

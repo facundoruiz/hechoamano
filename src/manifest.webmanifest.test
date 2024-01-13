@@ -1,0 +1,29 @@
+{
+  "short_name": "ham",
+    "name": "Hecho a Mano ",
+    "description": "Cerámica Hecho a Mano ",
+    "scope": "/",
+    "icons": [
+      {
+        "src": "/asset/icon/android-icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/asset/icon/apple-icon-180x180.png",
+        "sizes": "180x180",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "./",
+    "display": "standalone",
+    "theme_color": "#712cf9",
+    "background_color": "#712cf9",
+    "form_factor": "wide",
+    "screenshots": [{
+      "src": "/asset/icon/screenshot.png",
+      "sizes": "800x600",
+      "form_factor": "wide",
+      "label": "Portal Proyecto Yunga"
+    }]
+  }

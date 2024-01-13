@@ -8,6 +8,7 @@
     "dev": "webpack --config webpack.config.js",
     "start": "webpack serve ",
     "build": "webpack  --config webpack-prod.config.js",
+    "docs": "webpack  --config webpack.docs.config.js",
     "public": "webpack  --config webpack.public.config.js"
   },
   "keywords": [

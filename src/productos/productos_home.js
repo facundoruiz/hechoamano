@@ -3,7 +3,7 @@ import {
   getTask
 } from "./productos_crud.js"
 
-import{addDesos} from '../vendor/fav.js'
+import{addDesos,delDesos} from '../vendor/fav.js'
 
 import{filterFunction} from '../vendor/util.js'
 
@@ -105,28 +105,6 @@ export const resizeInstance = (instance) => {
 
 window.addEventListener("resize", resizeAllGridItems);
 
-/**
- * Botonpara despertar loselelemtos dibujados no funciona bien
- */
-export const wakeBtn = () => {
-  console.log('wu');
-  /**
-   * cuando hagan click en deseo
-   */
-
-  const btnDeseo = document.querySelectorAll(".btn-deseo");
-  btnDeseo.forEach((btn) => {
-    btn.addEventListener("click", async (event) => {
-      try {
-        /*    const doc = await getTask(event.target.dataset.info);
-            const task = doc.data();*/
-        console.log(event.target.dataset.info);
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  });
-}
 
 /**
  *  fn para agregar al lista de deseo
@@ -139,6 +117,12 @@ window.btnDeseo  =  (object) =>{
     addDesos(elem)
   })
 }
+
+
+
+document.getElementById('btnLimpiar').addEventListener('click', () => {
+  delDesos()
+});
 
 window.btnShare = (object) => {
   let id= object.getAttribute('data-info')
@@ -158,6 +142,8 @@ window.btnShare = (object) => {
 }
 
 
+/****  Buscador */
+/*
 document.getElementById('buscaInputBtn').addEventListener("keyup", function(event) {
   filterFunction("ListadoProductos","buscaInputBtn");
   var target = event.target;
@@ -183,28 +169,32 @@ document.getElementById('buscaInputBtn').addEventListener("keyup", function(even
      toggleClass(target, false, 'x-1', 'onX-1');
      target.value = '';
      triggerEvent(target, 'keyup');
-   }
+      // Obtener el contenedor del acordeón
+      const div = document.getElementById("ListadoProductos");
+      const secciones = div.querySelectorAll('.hcf-isotope-item');
+
+      secciones.forEach(seccion => {
+        seccion.style.display = 'block';
+        
+            })
+    }
  });
  
  document.addEventListener('click', function (event) {
    var target = event.target;
  
-   if (target.classList.contains('onX-1')) {
+   if (target.classList.contains('onX-1')||target.classList.contains('X-1')) {
      toggleClass(target, false, 'x-1', 'onX-1');
      target.value = '';
      triggerEvent(target, 'keyup');
  
                          // Obtener el contenedor del acordeón
-                       const div = document.getElementById("ListadoManuales");
-                       const secciones = div.querySelectorAll('.accordion-item');
+                       const div = document.getElementById("ListadoProductos");
+                       const secciones = div.querySelectorAll('.hcf-isotope-item');
  
                        secciones.forEach(seccion => {
                          seccion.style.display = 'block';
-                         // Obtener los enlaces dentro de la sección
-                           const    txtList = seccion.querySelectorAll("a");
-                               txtList.forEach(enlace => {
-                                   enlace.style.display = "block";
-                               })
+                         
                              })
                        
    }
@@ -225,3 +215,4 @@ document.getElementById('buscaInputBtn').addEventListener("keyup", function(even
    var event = new Event(eventName);
    element.dispatchEvent(event);
  }
+*/

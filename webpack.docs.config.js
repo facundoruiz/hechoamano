@@ -26,7 +26,7 @@ module.exports = {
     dashboard: './src/dashboard.js',
   },
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'docs'),
     filename: 'assets/js/[name].js',
   },
   performance: {

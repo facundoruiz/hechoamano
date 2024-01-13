@@ -11,7 +11,12 @@ export const addDesos =(elem) =>{
    // Actualizar la lista de favoritos en tu interfaz de usuario
    showDeseos() 
   }
- 
+ // Función para borrar una URL fav
+export const delDesos =(elem) =>{
+  
+    localStorage.setItem('Desoss', JSON.stringify({}));
+    showDeseos() 
+  }
     
 function showDeseos() {
     const DesossContainer = document.getElementById('DesossContainer'); // un UL
@@ -20,6 +25,7 @@ function showDeseos() {
     if (Object.keys(Desoss).length === 0){
 
       corazon.setAttribute("class","bi bi-heart");
+      DesossContainer.innerHTML = '';
     }else{
       corazon.setAttribute("class","bi bi-heart-fill text-danger");
       DesossContainer.innerHTML = '';

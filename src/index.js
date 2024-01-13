@@ -3,7 +3,7 @@ import "./scss/styles.scss";
 
 // script de de uso frecuente
 import "./vendor/darkModeControl.js";
-import { showTareas ,resizeAllGridItems,wakeBtn} from "./productos/productos_home.js";
+import { showTareas ,resizeAllGridItems} from "./productos/productos_home.js";
 import "./vendor/notify.js";
 import {
   Tooltip

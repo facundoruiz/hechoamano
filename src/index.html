@@ -6,13 +6,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicons -->
-  <link rel="apple-touch-icon" href="assets/icon/ico_48.png" sizes="180x180">
-  <link rel="icon" href="assets/icon/ico_32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="assets/icon/ico_16.png" sizes="16x16" type="image/png">
-  <link rel="mask-icon" href="assets/icon/ico.svg" color="#712cf9">
+  <link rel="apple-touch-icon" href="assets/icon/icon-192x192.png" sizes="192x192">
+  <link rel="icon" href="assets/icon/icon-48x48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="assets/icon/icon-72x72.png" sizes="72x72" type="image/png">
+  <link rel="mask-icon" href="assets/icon/icon.svg" color="#448aff">
   <link rel="icon" href="favicon.ico">
   <meta name="description" content="">
-  <meta name="theme-color" content="#712cf9">
+  <meta name="theme-color" content="#448aff">
   <link rel="manifest" href="manifest.json">
 </head>
 <title>
@@ -20,9 +20,9 @@
 </title>
 
 <body class="bg-body-tertiary">
- 
+
   <!-- Start Loader -->
-   <div class='loading ' style="position: fixed;
+  <div class='loading ' style="position: fixed;
    left: 0px;
    top: 0px;
    right: 0px;
@@ -33,45 +33,48 @@
    height: 100%;
    background-color: #000;
    display: block;">
-     <div class='loader'>
-       <div class="loader-wobble">Cargando</div>
-      <div class="loader-butterfly"></div>  
-      </div>
+    <div class='loader'>
+      <div class="loader-wobble">Cargando</div>
+      <div class="loader-butterfly"></div>
     </div>
-  
-<!-- End Loader -->
+  </div>
+
+  <!-- End Loader -->
   <button id="installButton" style="display: none;">Instalar</button>
 
 
 
-       <!-- Start Header -->
-    <header class='page-header bg-body' id='page-header'>
-      <div class='container'>
-       
-          <div class='navbar-header'>
-            <!-- Logo -->
-            <a class='logo animate__animated animate__onstart' data-animation-delay='200' data-animation='fadeInDown' href='#'>
-              <!-- %img{:src => "images/logo.png", :alt => ""}/ -->
-              <div class='circle-logo-wrapper'>
-                <div class='circle'></div>
-                <i class="icon fa fa-rocket" aria-hidden="true"></i>
-              </div>
-              <%= htmlWebpackPlugin.options.title %>
-            </a>
+  <!-- Start Header -->
+  <header class='page-header bg-body' id='page-header'>
+    <div class='container'>
+
+      <div class='navbar-header'>
+        <!-- Logo -->
+        <a class='logo animate__animated animate__onstart' data-animation-delay='200' data-animation='fadeInDown'
+          href='#'>
+          <!-- %img{:src => "images/logo.png", :alt => ""}/ -->
+          <div class='circle-logo-wrapper'>
+            <div class='circle'></div>
+            <i class="bi bi-cup" aria-hidden="true"></i>
           </div>
-      
-          <!-- Social navigation -->
-          <div class='social-nav'>
-            
-         <ul>
-            <li class='animate__animated animate__onstart'>
-           
-              <a class='btn  btn-outline-secondary ' id="btnShowDeseos"  data-bs-toggle="collapse" href="#DesossCollapse" role="button" aria-expanded="false" aria-controls="DesossCollapse"  data-bs-toggle-tool='tooltip' data-bs-title="Lista de Deseos" title='Lista de Deseos'>
-                <i class="bi bi-heart" id="corazon"></i>
-              </a>
-           
-            </li>
-            <!--    <li>
+          <%= htmlWebpackPlugin.options.title %>
+        </a>
+      </div>
+
+      <!-- Social navigation -->
+      <div class='social-nav'>
+
+        <ul>
+          <li class='animate__animated animate__onstart'>
+
+            <a class='btn  btn-outline-secondary ' id="btnShowDeseos" data-bs-toggle="collapse" href="#DesossCollapse"
+              role="button" aria-expanded="false" aria-controls="DesossCollapse" data-bs-toggle-tool='tooltip'
+              data-bs-title="Lista de Deseos" title='Lista de Deseos'>
+              <i class="bi bi-heart" id="corazon"></i>
+            </a>
+
+          </li>
+          <!--    <li>
                 <label for="night-light-checkbox" class="night-light-label">
                   <input type="checkbox" id="night-light-checkbox" />
                   <span class="night-light-ball"></span>
@@ -102,76 +105,88 @@
                   <i class='bi bi-instagram'></i>
                 </a>
               </li>-->
-             
-            </ul>
-            
-          </div>
-          <!-- End Social navigation -->
-          
-        
+
+        </ul>
+
       </div>
-    </header>
-    <!-- End Header -->
-    <div class="collapse container text-center" id="DesossCollapse">
-      <hr>
-      <h3>Listas de Deseos</h3>
-      <div class="row" id="DesossContainer" >Vacia</div>  
+      <!-- End Social navigation -->
+
+
     </div>
-
-
-      <!-- Start Welcome -->
-      <section class='welcome section-content section'>
-        <div class='overlay'></div>
-        <div class='container'>
-          <div class='row'>
-            <div class='col-sm-12'>
-              <h1 class='section-title'>
-                Cerámica
-              </h1>
-              <form class="d-flex" role="search">
-                <input class="form-control me-2 clear-data" id="buscaInputBtn" autocomplete="off" type="search" placeholder="Buscar codigo o nombre" aria-label="buscar">
-              </form>
-           
-            </div>
-          </div>
+  </header>
+  <!-- End Header -->
+  <div class="collapse container text-center" id="DesossCollapse">
+    <hr>
+    <div class="card">
+      <div class="card-header">
+        <h5 class="float-start">Listas de Deseos </h5>
+        <button type="button" class="btnCerrar btn-close btn-sm float-end" aria-label="Close" data-bs-toggle="collapse"
+          data-bs-target="#DesossCollapse" role="button" aria-expanded="false" aria-controls="DesossCollapse"></button>
+      </div>
+      <div class="card-body">
+        <div class="row" id="DesossContainer">
+          <h3>Vacia</h3>
         </div>
-      </section>
-      <!-- End Welcome-->
-
-      
-    <section class="container-fluid">
-      <div class="hcf-isotope-grid" id="ListadoProductos"></div>
-     </section>
-
-
-
-
-
-
-
- <!-- Start Footer -->
- <footer class='page-footer navbar-fixed-bottom'>
-  <div class='container-fluid'>
-    <div class='row'>
-      <div class='col-sm-12'>
-        <div class="">
-          hecho con <i class="bi bi-heart-fill highlight" aria-hidden="true"></i> por <a href="https://x.com/el_facu" target="_blank">@el_facu</a>
-        </div>
-        <div class='copyright'>© 2023 All rights reserved</div>
+        <button type="button" class="btn btn-outline-danger" id="btnLimpiar" data-bs-toggle="collapse"
+          data-bs-target="#DesossCollapse" role="button" aria-expanded="false"
+          aria-controls="DesossCollapse">Limpiar</button>
       </div>
     </div>
   </div>
-</footer>
-<!-- End Footer -->
 
- 
+  <!-- Start Welcome -->
+  <section class='welcome section-content section'>
+    <div class='overlay'></div>
+   <div class="container">
+     <div class="logoico">
+          </div>
+          <h1 class='section-title'>
+            Hecho a Mano
+          </h1>
+         <!--  <form class="d-flex" role="search">
+            <input class="form-control me-2 clear-data" id="buscaInputBtn" autocomplete="off" type="search"
+            placeholder="Buscar codigo o nombre" aria-label="buscar">
+          </form>
+          -->
+        </div>   
+  </section>
+  <!-- End Welcome-->
+
+
+  <section class="container-fluid">
+    <div class="hcf-isotope-grid" id="ListadoProductos"></div>
+  </section>
+
+
+
+
+
+
+
+  <!-- Start Footer -->
+  <footer class='page-footer navbar-fixed-bottom'>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='col-sm-12'>
+          <div class="">
+            hecho con <i class="bi bi-heart-fill highlight" aria-hidden="true"></i> por <a href="https://x.com/el_facu"
+              target="_blank">@el_facu</a>
+          </div>
+          <div class='copyright'>© 2023 All rights reserved</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+
+
 </body>
 <template id="templateProduct">
   <article class="hcf-isotope-item">
     <div class="hcf-masonry-card ">
       <div class="card-img ">
         <a class="rounded rounded-4" href="#!">
-          <img class="produto-img" alt="${taks.nombre}" loading="lazy" src="${taks.src_img}" >
+          <img class="produto-img" alt="${taks.nombre}" loading="lazy" src="${taks.src_img}">
         </a>
       </div>
       <div class="card-category text-white text-center float-end">$ ${taks.precio}</div>
@@ -180,24 +195,26 @@
         <h3 class="card-title text-white text-center mb-1">${taks.nombre} </h3>
         <p class="card-text text-white text-center">${taks.descripcion}</p>
         <div class='social-nav'>
-        <ul>
-          <li class='animate__animated animate__onstart'>
-            <button class="btn-share btn btn-info text-white" data-bs-placement='bottom' data-bs-toggle-tool='tooltip'
-              data-bs-title='Compartir' title='Compartir' onclick="btnShare(this)" data-info='${taks.id}' data-codigo='${taks.codigo}' data-nombre='${taks.nombre}'>
-              <i class='bi bi-share'></i>
-            </button>
-          </li>
-          <li class='animate__animated animate__onstart' >
-            <button class="btn-deseo btn btn-danger text-white " data-bs-placement='bottom' data-bs-toggle-tool='tooltip' 
-              data-bs-title="Agregar a lista de deseos" title='Agregar a lista de deseos' data-info='${taks.id}' onclick="btnDeseo(this)">
-              <i class="bi bi-heart"></i>
-            </button>
-          </li>
-        </ul>
-      </div>   
+          <ul>
+            <li class='animate__animated animate__onstart'>
+              <button class="btn-share btn btn-info text-white" data-bs-placement='bottom' data-bs-toggle-tool='tooltip'
+                data-bs-title='Compartir' title='Compartir' onclick="btnShare(this)" data-info='${taks.id}'
+                data-codigo='${taks.codigo}' data-nombre='${taks.nombre}'>
+                <i class='bi bi-share'></i>
+              </button>
+            </li>
+            <li class='animate__animated animate__onstart'>
+              <button class="btn-deseo btn btn-danger text-white " data-bs-placement='bottom'
+                data-bs-toggle-tool='tooltip' data-bs-title="Agregar a lista de deseos"
+                title='Agregar a lista de deseos' data-info='${taks.id}' onclick="btnDeseo(this)">
+                <i class="bi bi-heart"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </article> 
+  </article>
 </template>
 
 </html>
