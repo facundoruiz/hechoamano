@@ -24,7 +24,7 @@
 //@import "bootstrap/scss/functions";
 
 // Variable overrides second
-$primary: #900;
+$primary: #448aff;
 $enable-shadows: true;
 $prefix: "mo-";
 
@@ -239,7 +239,7 @@ section .container {
 
 .welcome {
   height: 50vh;
-  background-color: green;
+  background-color: #448aff;
   text-align: center;
   padding-top: 20vh;
 }
@@ -480,12 +480,19 @@ SOCIAL
   -o-transition: line-height 0.35s ease-in-out;
   -webkit-transition: line-height 0.35s ease-in-out;
   transition: line-height 0.35s ease-in-out;
-}
 
+}
+.logoico{
+  background-image: url('../assets/icon/icon.svg');
+  background-repeat: no-repeat;
+  height: 95px;
+width: 100px;
+}
+/*
 .logo>img {
   max-height: 56px;
   width: auto;
-}
+}*/
 
 @media (min-width: 992px) {
   .logo {
