@@ -3,7 +3,7 @@ import "./scss/styles.scss";
 
 // script de de uso frecuente
 import "./vendor/darkModeControl.js";
-import { showTareas ,resizeAllGridItems} from "./productos/productos_home.js";
+import { showTareas,handleScroll } from "./productos/productos_home.js";
 import "./vendor/notify.js";
 import {
   Tooltip
@@ -13,15 +13,15 @@ import {
 // Evento 'DOMContentLoaded' para asegurar que el DOM ha sido cargado
 document.addEventListener("DOMContentLoaded", async () => {
 
-   showTareas();
-/*    Loader     Obtén el elemento con la clase 'loading'    */
-var loadingElement = document.querySelector(".loading");
+  showTareas();
+  /*    Loader     Obtén el elemento con la clase 'loading'    */
+  var loadingElement = document.querySelector(".loading");
 
   // Espera 300 milisegundos antes de ocultar el elemento
- setTimeout(function () {
+  setTimeout(function () {
     // Oculta el elemento cambiando el estilo
-   loadingElement.style.display = "none";
-    }, 2500);
+    loadingElement.style.display = "none";
+  }, 2500);
 
   // Registrar el Service Worker
   if ("serviceWorker" in navigator) {
@@ -53,30 +53,26 @@ var loadingElement = document.querySelector(".loading");
 
     installButton.style.display = "block"; // Mostrar el botón de instalación
   });
-
-
- 
   //wakeBtn() //tardaen dibujar tarda en despertar
 });
 
 setTimeout(function () {
-  resizeAllGridItems()
+  //resizeAllGridItems()
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle-tool="tooltip"]')
-const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))
-  }, 3000);
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))
+}, 3000);
+
+// Herramienta para esperar un tiempo determinado en una función asíncrona 
+//await sleep(500);
+function sleep(ms = 300) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 
-
-
-     // Herramienta para esperar un tiempo determinado en una función asíncrona 
-     //await sleep(500);
-
-     function sleep(ms=300) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-
-    // Create an example popover
+// Create an example popover
 
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle-tool="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))
+
+
+window.addEventListener('scroll', handleScroll);
