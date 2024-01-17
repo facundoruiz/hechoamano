@@ -137,42 +137,48 @@
   <!-- Start Welcome -->
   <section class='welcome section-content section'>
     <div class='overlay'></div>
-   <div class="container">
-     <div class="logoico">
-          </div>
-          <h1 class='section-title'>
-            Hecho a Mano
-          </h1>
-         <!--  <form class="d-flex" role="search">
+    <div class="container">
+      <div class="logoico">
+      </div>
+      <h1 class='section-title'>
+        Hecho a Mano
+      </h1>
+      <!--  <form class="d-flex" role="search">
             <input class="form-control me-2 clear-data" id="buscaInputBtn" autocomplete="off" type="search"
             placeholder="Buscar codigo o nombre" aria-label="buscar">
           </form>
           -->
-        </div>   
+    </div>
   </section>
   <!-- End Welcome-->
 
-
   <section class="container-fluid">
+    <div class='cargando ' style="position: fixed;
+     z-index: 9999;
+   top:15%;
+    width: 95%;
+    height: 60%;
+    background-color: #839df1a6;
+    font-size: 2rem;
+    display: none;">
+      <div class='loader'>
+        <div class="loader-wobble">Cargando</div>
+      </div>
+    </div>
     <div class="hcf-isotope-grid" id="ListadoProductos"></div>
+    
   </section>
-
-
-
-
-
-
-
+  <div id="mas-post"></div>
   <!-- Start Footer -->
   <footer class='page-footer navbar-fixed-bottom'>
     <div class='container-fluid'>
       <div class='row'>
         <div class='col-sm-12'>
-          <div class="">
+          <div class="float-end">
             hecho con <i class="bi bi-heart-fill highlight" aria-hidden="true"></i> por <a href="https://x.com/el_facu"
               target="_blank">@el_facu</a>
           </div>
-          <div class='copyright'>© 2023 All rights reserved</div>
+          <div class='copyright'>2024 Hecho a mano de Paola Neila</div>
         </div>
       </div>
     </div>
@@ -185,7 +191,7 @@
   <article class="hcf-isotope-item">
     <div class="hcf-masonry-card ">
       <div class="card-img ">
-        <a class="rounded rounded-4" href="#!">
+        <a class="produto-img-url rounded rounded-4 " href="${taks.src_img}" target="_blank">
           <img class="produto-img" alt="${taks.nombre}" loading="lazy" src="${taks.src_img}">
         </a>
       </div>

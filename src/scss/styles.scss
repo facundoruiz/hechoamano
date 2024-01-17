@@ -150,10 +150,12 @@ html,
 body {
   overflow-x: hidden;
   /* Prevent scroll on narrow devices */
+
 }
 
 body {
   padding-top: 56px;
+  font-family: cursive;
 }
 
 @media (max-width: 991.98px) {
@@ -235,13 +237,20 @@ section .container {
 
 .section-title {
   font-weight: 100;
+  font-family: cursive;
+  color: black;
+  background-color: rgb(68 137 255 / 84%);
 }
 
 .welcome {
-  height: 50vh;
-  background-color: #448aff;
+  max-width: 100%;
+  min-height: 80vh;
+  
   text-align: center;
   padding-top: 20vh;
+  background: #448aff url('../assets/img/banner.jpeg') center/cover no-repeat fixed;
+  
+ 
 }
 
 
@@ -472,10 +481,9 @@ SOCIAL
   line-height: 51px;
   vertical-align: middle;
   display: inline-block;
-  float: left;
   font-weight: 300;
   margin: 0;
-  float: left;
+  
   -moz-transition: line-height 0.35s ease-in-out;
   -o-transition: line-height 0.35s ease-in-out;
   -webkit-transition: line-height 0.35s ease-in-out;
@@ -740,15 +748,23 @@ width: 100px;
 /** 
 TARJETAS
 */
+.hcf-isotope-grid {
+  width: 100%;
+  margin: 0px auto;
+display: grid;
+grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+gap: 10px;
+}
+
 
 .hcf-isotope-item {
   /* background-color: #eee;*/
   display: inline-block;
   margin: 1em 0 1em;
   width: 100%;
-  grid-row-end: span 15;
-  border:#eee 1px solid;
+    border:#eee 1px solid;
   border-radius: 8px;
+
    .card-img {
       overflow: hidden;
       img {
@@ -766,12 +782,7 @@ TARJETAS
 }
 
 
-.hcf-isotope-grid {
-  display: grid;
-  grid-gap: 1rem 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-auto-rows: 20px;
-}
+
 
 .card-code {
   padding-left: 10px;
@@ -793,7 +804,8 @@ TARJETAS
 
 /**
 
-loodin
+looding
+https://codepen.io/COCO_KJXD/full/zELwep
 */
 
 

@@ -7,7 +7,7 @@ import {
   deleteDoc,
   doc,
   getDoc,
-  updateDoc, serverTimestamp, limit, where, query, orderBy
+  updateDoc, serverTimestamp, limit, startAfter, query, orderBy, endBefore
 } from "firebase/firestore"
 import { getStorage ,ref,uploadBytesResumable,getDownloadURL } from "firebase/storage";
 
@@ -18,6 +18,7 @@ export const saveTask = async (producto) => {
   //addDoc(collection(db, coleccion), { estado,lugar,tak,uid ,serverTimestamp()});
   try {
     const user = auth.currentUser;
+    
     //cargar el archivo
     const imgenUp = await updateImg(producto["formFile"].files[0]);
   
@@ -135,4 +136,41 @@ const updateImg =async (file) =>  {
                    // 👆 getDownloadURL returns a promise too, so... yay more await
   
     return downloadURL; // 👈 return the URL to the caller
+}
+
+
+/** Paginado  
+ * https://github.com/falconmasters/paginacion-firebase/blob/master/main.js
+ * https://www.youtube.com/watch?v=Vi6Axq3RaNE&t=5s&ab_channel=FernandoHerrera
+*/
+
+let ultElem = null
+export const listar  = (callback) => {
+
+  // Ultimos cargados primero 
+  //const queryTareas = query(collection(db, coleccion), orderBy("createdAt", "desc"), limit(3),endBefore(ultElem));
+  // Primeros cargados primeros listado
+  const queryTareas = query(collection(db, coleccion), orderBy("createdAt", "asc"), limit(4),startAfter(ultElem));
+
+  onSnapshot(queryTareas, async (querySnapshot) => {
+    const productos = [];
+    for (const docu of querySnapshot.docs) {
+      const task = docu.data(); //transformo a objeto
+      task.id= docu.id //add el id del documento
+      productos.push({ ...task });
+    }
+    // unattach event listeners if no more docs
+    if (querySnapshot.empty) {
+     
+      return 0;
+    }else{
+      ultElem = querySnapshot.docs[querySnapshot.docs.length-1];
+      callback(productos);
+    }
+     
+  
+    
+  });
+
+ 
 }
