@@ -62,7 +62,10 @@ if (taskForm) {
       // show  message
       taskForm.reset();
       taskForm['codigo'].focus();
+      taskForm['id'].value='';
+      document.getElementById('img-content').style.display = "none";
       showMessage("pieza Guardada!");
+      
       //window.location.href = "./";
     } else {
       showMessage(" Errror !!", 'error');
@@ -125,6 +128,14 @@ const wakeBtn = () => {
         document.getElementById('nombre').value=task.nombre
         document.getElementById('descripcion').value=task.descripcion
         document.getElementById('precio').value=task.precio
+        document.getElementById('id').value=event.target.dataset.id
+
+        document.querySelector(".img-thumbnail").src = task.src_img ? task.src_img : '';
+        document.querySelector(".img-thumbnail").alt = task.nombre ? task.nombre : '';
+         document.querySelector(".img-thumbnail").width = '80';
+         document.querySelector(".img-thumbnail").style.display = "block";
+         document.getElementById('img-content').style.display = "block";
+         document.getElementById('formFile').removeAttribute("required");
 
       } catch (error) {
         console.log(error);
@@ -138,4 +149,8 @@ const wakeBtn = () => {
 const myModalEl = document.getElementById('agregaTak')
 myModalEl.addEventListener('hidden.bs.modal', event => {
   taskForm.reset();
+  document.querySelector(".img-thumbnail").style.display = "none";
+  document.getElementById('img-content').style.display = "none";
+  document.getElementById('id').value = "";
+  document.getElementById('formFile').setAttribute("required", "");
 })
