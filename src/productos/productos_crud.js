@@ -18,24 +18,35 @@ export const saveTask = async (producto) => {
   //addDoc(collection(db, coleccion), { estado,lugar,tak,uid ,serverTimestamp()});
   try {
     const user = auth.currentUser;
+    let docRef
+    let obj = {}
     
+    obj.estado= 1 //habilitadosiempre
+    obj.codigo= producto["codigo"].value
+    obj.nombre= producto["nombre"].value
+    obj.descripcion= producto["descripcion"].value
+    obj.precio= producto["precio"].value
+    obj.uid= user.uid
+   
     //cargar el archivo
-    const imgenUp = await updateImg(producto["formFile"].files[0]);
-  
-    // Obtener el usuario autenticado actualmente
-    const docRef = await addDoc(collection(db, coleccion), {
-      estado: 1, //habilitadosiempre
-      codigo: producto["codigo"].value,
-      nombre: producto["nombre"].value,
-      descripcion: producto["descripcion"].value,
-      precio: producto["precio"].value,
-      uid: user.uid,
-      createdAt: serverTimestamp(),
-      src_img: imgenUp
-    });
+    if (producto["formFile"].files[0]) {
+      const imgenUp = await updateImg(producto["formFile"].files[0]);
+      obj.src_img= imgenUp 
+    }
 
-    return docRef.id;
+    if (producto["id"].value) {
+      obj.updateAt= serverTimestamp()
+      docRef = await updateDoc(doc(db, coleccion, producto["id"].value), obj);
 
+    }else{
+      obj.createdAt= serverTimestamp()
+      // Obtener el usuario autenticado actualmente
+      docRef = await addDoc(collection(db, coleccion), obj);
+    
+    }
+    
+    return true;
+    
   } catch (error) {
     console.error("Error al guardar el documento:", error);
     return false;
@@ -45,7 +56,7 @@ export const saveTask = async (producto) => {
 
 export const onGetTasks = (callback) => {
   // Crear una consulta para obtener los últimos 10 taks ordenados por createdAt de forma descendente
-  const queryTareas = query(collection(db, coleccion), orderBy("createdAt", "asc"), limit(10));
+  const queryTareas = query(collection(db, coleccion), orderBy("createdAt", "asc"));
 
   onSnapshot(queryTareas, async (querySnapshot) => {
     const productos = [];

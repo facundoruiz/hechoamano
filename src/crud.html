@@ -178,14 +178,15 @@
   <div class="modal fade" id="agregaTak" tabindex="-1" aria-labelledby="agregaTakLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
       <div class="modal-content">
+        <form id="taks-form" class="needs-validation"  enctype="multipart/form-data">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="agregaTakLabel">Cargar ceramica</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form id="taks-form" class="needs-validation"  enctype="multipart/form-data">
           <div class="modal-body bg-secondary-subtle">
             <div class="row ">
               <div class="col-sm-4">
+                <input type="hidden" name="id" id="id" value="">
                 <label for="codigo" class="form-label">codigo</label>
                 <input type="text" class="form-control" name="codigo" id="codigo" placeholder="ingreso codigo" required>
                 <small class="text-muted">codigo de la pieza</small>
@@ -216,6 +217,10 @@
               <div class="col-sm-4">
                 <label for="formFile" class="form-label">Imagen Principal</label>
                 <input class="form-control" type="file" name="formFile" id="formFile"  required>
+                <div id="img-content">
+                  <small class="text-muted">Si carga otra imagen reemplazara la actual</small>
+                  <img src="" alt="" class="img-thumbnail">
+                </div>
               </div>
               <!-- <div class="col-sm-4">
                 <div class="form-check">
@@ -228,8 +233,12 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" id="save-tak">Guardar</button>
+      
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+           
+
+                <button type="submit" class="btn btn-primary btn-lg " id="save-tak">Guardar</button>
+             
           </div>
         </form>
       </div>
