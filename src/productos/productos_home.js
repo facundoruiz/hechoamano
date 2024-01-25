@@ -2,7 +2,7 @@ import {
   listar
 } from "./productos_crud.js"
 
-import { addDesos, delDesos } from '../vendor/fav.js'
+import { addDesos, delDesos,quitarDesos } from '../vendor/fav.js'
 
 
 const productoslist = []
@@ -63,6 +63,13 @@ window.btnDeseo = (object) => {
   })
 }
 
+window.btnQuitar = (object) => {
+  let id = object.getAttribute('data-info')
+ 
+      quitarDesos(id)
+  
+}
+
 
 document.getElementById('btnLimpiar').addEventListener('click', () => {
   delDesos()
@@ -88,7 +95,7 @@ window.btnShare = (object) => {
 
 export const handleScroll = async () => {
   const scrollHeight = window.scrollY;
-  const viewportHeight = document.documentElement.clientHeight;
+  const viewportHeight =  Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);// document.documentElement.clientHeight;
   const moreScroll = document.getElementById('mas-post').offsetTop;
   const currentScroll = scrollHeight + viewportHeight;
 
