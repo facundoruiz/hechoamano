@@ -250,7 +250,7 @@ section .container {
   text-align: center;
   padding-top: 20vh;
   background: #448aff url('../assets/img/banner.jpeg') center/cover no-repeat fixed;
-  background-blend-mode: multiply;
+ 
 }
 
 
@@ -491,23 +491,33 @@ SOCIAL
 
 }
 .logoico{
-  background-image: url('../assets/icon/icon.svg');
-  background-repeat: no-repeat;
-  height: 95px;
-width: 100px;
+  background-image: url('../assets/icon/ham_logo2.svg');
+background-repeat: no-repeat;
+height: 350px;
+width: 100%;
+background-size: contain;
+background-position: center;
+/*border-radius: 55px;
+background-color: #f8f9fa;*/
+background-color: #82b4df78;
 }
+.logo-head{
+  background-image: url('../assets/icon/icon.svg');
+background-repeat: no-repeat;
+height: 50px;
+width: 50px;
+background-size: contain;
+border-radius: 55px;
+background-color: #f8f9fa;
+}
+
 /*
 .logo>img {
   max-height: 56px;
   width: auto;
 }*/
 
-@media (min-width: 992px) {
-  .logo {
-    font-size: 27px;
-    line-height: 59px;
-  }
-}
+
 
 .logo .small {
   font-size: 70%;

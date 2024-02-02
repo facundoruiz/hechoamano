@@ -106,7 +106,6 @@ export const handleScroll = async () => {
     loadingElement.style.display = "block";
     window.setTimeout(() => {
       // Espera 300 milisegundos antes de ocultar el elemento
-
       // Oculta el elemento cambiando el estilo
       loadingElement.style.display = "none";
        showTareas()
