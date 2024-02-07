@@ -48,7 +48,7 @@ export const showTareas = async () => {
     gridProductos.appendChild(fragment)
 
   })
-
+  
 }
 
 /**
@@ -112,7 +112,6 @@ export const handleScroll = async () => {
         block = false;
     }, 2000);
   }
-
+ 
 
 }
-

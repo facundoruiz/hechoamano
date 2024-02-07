@@ -28,18 +28,20 @@ export const saveTask = async (producto) => {
     obj.precio= producto["precio"].value
     obj.uid= user.uid
    
-    //cargar el archivo
+    // //cargar el archivo
     if (producto["formFile"].files[0]) {
       const imgenUp = await updateImg(producto["formFile"].files[0]);
       obj.src_img= imgenUp 
     }
-
+    //obj.src_img= 'https://firebasestorage.googleapis.com/v0/b/hecho-mano.appspot.com/o/productos%2Fno-imagen.png?alt=media&token=a9b754b3-d75b-4ebd-b077-366a46231163'
+    
     if (producto["id"].value) {
       obj.updateAt= serverTimestamp()
       docRef = await updateDoc(doc(db, coleccion, producto["id"].value), obj);
 
     }else{
       obj.createdAt= serverTimestamp()
+
       // Obtener el usuario autenticado actualmente
       docRef = await addDoc(collection(db, coleccion), obj);
     
@@ -86,9 +88,7 @@ export const deleteTask = (id) =>
   deleteDoc(doc(db, coleccion, id)
   );
 
-export const getTask = (id) =>
-  getDoc(doc(db, coleccion, id)
-  );
+export const getTask =  async (id) =>   await getDoc(doc(db, coleccion, id));
 
 export const updateTask = (id, newFields) =>
   updateDoc(doc(db, coleccion, id), newFields);
