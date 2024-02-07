@@ -3,8 +3,8 @@ import "./scss/styles.scss";
 
 // script de de uso frecuente
 import "./vendor/darkModeControl.js";
-import { showTareas,handleScroll } from "./productos/productos_home.js";
 import "./vendor/notify.js";
+import { showTareas,handleScroll } from "./productos/productos_home.js";
 import {
   Tooltip
 } from 'bootstrap';
@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   setTimeout(function () {
     // Oculta el elemento cambiando el estilo
     loadingElement.style.display = "none";
+  
+
   }, 2500);
 
   // Registrar el Service Worker
@@ -60,6 +62,8 @@ setTimeout(function () {
   //resizeAllGridItems()
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle-tool="tooltip"]')
   const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))
+
+  
 }, 3000);
 
 // Herramienta para esperar un tiempo determinado en una función asíncrona 
@@ -69,10 +73,6 @@ function sleep(ms = 300) {
 }
 
 
-// Create an example popover
-
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle-tool="tooltip"]')
-const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))
-
 
 window.addEventListener('scroll', handleScroll);
+
